@@ -1,0 +1,28 @@
+.event-bg-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  background-color: #050914;
+}
+
+/* Base Dark Navy */
+.event-bg-base {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, #081525 0%, #050914 85%);
+  pointer-events: none;
+}
+
+/* Pure Aurora Layer */
+.event-bg-aurora {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

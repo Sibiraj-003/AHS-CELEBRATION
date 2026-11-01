@@ -1,0 +1,70 @@
+.event-badge {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.event-badge__glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.event-badge__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
+/* Freshers styling: Cyan / Blue / Emerald */
+.event-badge--freshers {
+  background: linear-gradient(135deg, rgba(22, 119, 255, 0.25), rgba(66, 217, 255, 0.2));
+  border: 1px solid rgba(66, 217, 255, 0.45);
+  color: #42D9FF;
+  text-shadow: 0 0 12px rgba(66, 217, 255, 0.6);
+}
+
+.event-badge--freshers .event-badge__glow {
+  background: radial-gradient(circle at 50% 50%, rgba(66, 217, 255, 0.25) 0%, transparent 70%);
+}
+
+/* Farewell styling: Subtle Violet / Gold / Magenta */
+.event-badge--farewell {
+  background: linear-gradient(135deg, rgba(124, 92, 255, 0.25), rgba(245, 158, 11, 0.15));
+  border: 1px solid rgba(124, 92, 255, 0.5);
+  color: #c084fc;
+  text-shadow: 0 0 12px rgba(124, 92, 255, 0.6);
+}
+
+.event-badge--farewell .event-badge__glow {
+  background: radial-gradient(circle at 50% 50%, rgba(124, 92, 255, 0.25) 0%, transparent 70%);
+}
+
+/* Sizes */
+.event-badge--sm {
+  padding: 0.35rem 0.85rem;
+  font-size: 0.7rem;
+}
+
+.event-badge--md {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.82rem;
+}
+
+.event-badge--lg {
+  padding: 0.65rem 1.6rem;
+  font-size: 0.92rem;
+}

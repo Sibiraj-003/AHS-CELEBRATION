@@ -1,0 +1,14 @@
+.app-layout {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+.app-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
+}

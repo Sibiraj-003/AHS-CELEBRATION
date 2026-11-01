@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
-import { findProfileById, addStoredProfile, EVENT_DETAILS, type Profile as ProfileType } from '../data/profiles';
+import { findProfileById, addStoredProfile, fetchProfileByIdFromSupabase, EVENT_DETAILS, type Profile as ProfileType } from '../data/profiles';
 import OfficialInvitation from '../components/OfficialInvitation';
 import QRCodeCard from '../components/QRCodeCard';
 import { ArrowLeft, ShieldCheck, AlertCircle, Home as HomeIcon, QrCode } from 'lucide-react';
@@ -10,6 +10,17 @@ export const Profile: React.FC = () => {
   const { profileId } = useParams<{ profileId: string }>();
   const [searchParams] = useSearchParams();
   const [showQR, setShowQR] = useState(false);
+  const [liveProfile, setLiveProfile] = useState<ProfileType | null>(null);
+
+  // Fetch real-time profile from Supabase database so any phone gets the latest photo instantly
+  useEffect(() => {
+    if (!profileId) return;
+    fetchProfileByIdFromSupabase(profileId).then(p => {
+      if (p) {
+        setLiveProfile(p);
+      }
+    });
+  }, [profileId]);
 
   const profile = useMemo(() => {
     if (!profileId) return undefined;
@@ -60,7 +71,8 @@ export const Profile: React.FC = () => {
     return synthesized;
   }, [profileId, searchParams]);
 
-  const isFreshers = profile ? (profile.eventType || profile.event) === 'freshers' : true;
+  const activeProfile = liveProfile || profile;
+  const isFreshers = activeProfile ? (activeProfile.eventType || activeProfile.event) === 'freshers' : true;
 
   return (
     <div className="profile-page">
@@ -79,20 +91,20 @@ export const Profile: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="profile-main">
-        {profile ? (
+        {activeProfile ? (
           <div className="profile-view-wrapper">
             <div className="profile-view-header">
               <span className={`profile-view-tag ${isFreshers ? 'tag-freshers' : 'tag-farewell'}`}>
                 {isFreshers ? 'FRESHERS DAY 2026' : 'FAREWELL DAY 2026'}
               </span>
-              <h1 className="profile-view-title">{profile.name}</h1>
+              <h1 className="profile-view-title">{activeProfile.name}</h1>
               <p className="profile-view-sub">
-                Reg. No: <strong>{profile.regNo || profile.id}</strong> • Official Personalized Digital Pass
+                Reg. No: <strong>{activeProfile.regNo || activeProfile.id}</strong> • Official Personalized Digital Pass
               </p>
             </div>
 
             {/* Official Invitation Poster matching exact reference designs */}
-            <OfficialInvitation profile={profile} />
+            <OfficialInvitation profile={activeProfile} />
 
             {/* Additional Pass Controls */}
             <div className="profile-view-actions">
@@ -115,9 +127,9 @@ export const Profile: React.FC = () => {
             {showQR && (
               <div className="profile-qr-box-wrap">
                 <QRCodeCard
-                  profileId={profile.id}
-                  name={profile.name}
-                  event={profile.eventType || profile.event || 'freshers'}
+                  profileId={activeProfile.id}
+                  name={activeProfile.name}
+                  event={activeProfile.eventType || activeProfile.event || 'freshers'}
                 />
               </div>
             )}

@@ -7,6 +7,9 @@ import {
   updateStoredProfile,
   deleteStoredProfile,
   clearAllStoredProfiles,
+  upsertProfileToSupabase,
+  deleteProfileFromSupabase,
+  uploadPhotoToSupabase,
   EVENT_DETAILS,
 } from '../data/profiles';
 import type { Profile } from '../data/profiles';
@@ -183,8 +186,18 @@ export const Admin: React.FC = () => {
   const uploadPhotoToServer = async (file: File, idHint: string): Promise<string> => {
     setIsUploadingPhoto(true);
     try {
+      // 1. Try direct Supabase public Storage bucket upload
+      try {
+        const supaUrl = await uploadPhotoToSupabase(file, idHint || 'attendee');
+        if (supaUrl && supaUrl.startsWith('http')) {
+          return supaUrl;
+        }
+      } catch (e) {
+        console.warn('Supabase storage upload error:', e);
+      }
+
+      // 2. Try serverless fallback
       const base64 = await compressImage(file);
-      // Try uploading to cloud API for permanent public link so any phone scanning the QR can see the photo
       try {
         const res = await fetch('/api/upload', {
           method: 'POST',
@@ -230,6 +243,10 @@ export const Admin: React.FC = () => {
       showNotification('Uploading photo to cloud for universal QR access...', 'success');
       const photoUrl = await uploadPhotoToServer(file, targetQuickProfileId);
       updateStoredProfile(targetQuickProfileId, { photo: photoUrl });
+      const target = profiles.find(p => p.id === targetQuickProfileId);
+      if (target) {
+        await upsertProfileToSupabase({ ...target, photo: photoUrl });
+      }
       if (photoUrl.startsWith('http')) {
         showNotification('Photo synced to cloud! Visible on all phones when scanning QR.');
       } else {
@@ -248,8 +265,12 @@ export const Admin: React.FC = () => {
     quickFileInputRef.current?.click();
   };
 
-  const handleRemovePhoto = (profileId: string) => {
+  const handleRemovePhoto = async (profileId: string) => {
     updateStoredProfile(profileId, { photo: '' });
+    const target = profiles.find(p => p.id === profileId);
+    if (target) {
+      await upsertProfileToSupabase({ ...target, photo: '' });
+    }
     showNotification('Photo removed');
   };
 
@@ -257,16 +278,20 @@ export const Admin: React.FC = () => {
     if (window.confirm('Are you sure you want to remove photos from ALL attendees?')) {
       const cleared = profiles.map(p => ({ ...p, photo: '' }));
       saveAllProfiles(cleared);
+      cleared.forEach(p => upsertProfileToSupabase(p));
       showNotification('All attendee photos cleared');
     }
   };
 
   const saveAllProfiles = (list: Profile[]) => {
     clearAllStoredProfiles();
-    list.forEach(p => addStoredProfile(p));
+    list.forEach(p => {
+      addStoredProfile(p);
+      upsertProfileToSupabase(p);
+    });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanName = formName.trim();
     if (!cleanName) return;
@@ -287,18 +312,21 @@ export const Admin: React.FC = () => {
 
     if (editingProfile) {
       updateStoredProfile(editingProfile.id, newProfile);
+      await upsertProfileToSupabase(newProfile);
       showNotification(`Updated profile for ${cleanName}`);
     } else {
       addStoredProfile(newProfile);
+      await upsertProfileToSupabase(newProfile);
       showNotification(`Added ${cleanName} to ${formEvent.toUpperCase()}`);
     }
 
     setIsModalOpen(false);
   };
 
-  const handleDelete = (profile: Profile) => {
+  const handleDelete = async (profile: Profile) => {
     if (window.confirm(`Are you sure you want to delete ${profile.name} (${profile.regNo || profile.id})?`)) {
       deleteStoredProfile(profile.id);
+      await deleteProfileFromSupabase(profile.id);
       showNotification(`Deleted ${profile.name}`);
     }
   };

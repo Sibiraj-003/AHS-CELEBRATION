@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
 
 export interface Profile {
   id: string;
@@ -24,6 +25,108 @@ export const EVENT_DETAILS = {
 };
 
 export const STORAGE_KEY = 'ahs_profiles_data_2026_clean';
+
+// Map Supabase row to Profile
+export function mapRowToProfile(row: any): Profile {
+  return {
+    id: row.id,
+    name: row.name,
+    regNo: row.reg_no || row.id,
+    eventType: (row.event_type || 'freshers') as 'freshers' | 'farewell',
+    event: (row.event_type || 'freshers') as 'freshers' | 'farewell',
+    photo: row.photo || '',
+    role: row.role || '',
+    quote: row.quote || '',
+  };
+}
+
+// Fetch all profiles from Supabase (with fallback to local storage)
+export async function fetchProfilesFromSupabase(): Promise<Profile[]> {
+  try {
+    const { data, error } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
+    if (!error && Array.isArray(data)) {
+      const list = data.map(mapRowToProfile);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      }
+      return list;
+    }
+  } catch (err) {
+    console.warn('Supabase fetch failed, falling back to local storage:', err);
+  }
+  return loadStoredProfiles();
+}
+
+// Fetch single profile by ID from Supabase
+export async function fetchProfileByIdFromSupabase(id: string): Promise<Profile | undefined> {
+  try {
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', id).single();
+    if (!error && data) {
+      const p = mapRowToProfile(data);
+      addStoredProfile(p);
+      return p;
+    }
+  } catch (err) {
+    console.warn('Supabase fetchProfileById failed:', err);
+  }
+  return findProfileById(id);
+}
+
+// Upsert profile into Supabase
+export async function upsertProfileToSupabase(profile: Profile): Promise<boolean> {
+  addStoredProfile(profile);
+  try {
+    const { error } = await supabase.from('profiles').upsert({
+      id: profile.id,
+      name: profile.name,
+      reg_no: profile.regNo || profile.id,
+      event_type: profile.eventType || profile.event || 'freshers',
+      photo: profile.photo || '',
+      role: profile.role || '',
+      quote: profile.quote || '',
+    });
+    if (error) {
+      console.warn('Supabase upsert error:', error);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.warn('Supabase upsert exception:', err);
+    return false;
+  }
+}
+
+// Delete profile from Supabase
+export async function deleteProfileFromSupabase(id: string): Promise<boolean> {
+  deleteStoredProfile(id);
+  try {
+    const { error } = await supabase.from('profiles').delete().eq('id', id);
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+// Upload photo directly to Supabase storage bucket 'photos'
+export async function uploadPhotoToSupabase(file: File, id: string): Promise<string | null> {
+  try {
+    const fileExt = file.name.split('.').pop() || 'jpg';
+    const filePath = `${id}-${Date.now()}.${fileExt}`;
+    const { error } = await supabase.storage.from('photos').upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: true,
+    });
+    if (error) {
+      console.warn('Supabase storage upload error:', error);
+      return null;
+    }
+    const { data: publicUrlData } = supabase.storage.from('photos').getPublicUrl(filePath);
+    return publicUrlData.publicUrl;
+  } catch (err) {
+    console.warn('Supabase storage upload exception:', err);
+    return null;
+  }
+}
 
 // Default Profiles list starts completely empty so admin can add custom attendees
 export const DEFAULT_PROFILES: Profile[] = [];
@@ -130,6 +233,13 @@ export function useProfiles(): [Profile[], (profiles: Profile[]) => void] {
   const [profiles, setProfiles] = useState<Profile[]>(() => loadStoredProfiles());
 
   useEffect(() => {
+    let mounted = true;
+    fetchProfilesFromSupabase().then(list => {
+      if (mounted && list) {
+        setProfiles(list);
+      }
+    });
+
     const handleUpdate = () => {
       setProfiles(loadStoredProfiles());
     };
@@ -138,6 +248,7 @@ export function useProfiles(): [Profile[], (profiles: Profile[]) => void] {
     window.addEventListener('storage', handleUpdate);
 
     return () => {
+      mounted = false;
       window.removeEventListener('ahs_profiles_updated', handleUpdate);
       window.removeEventListener('storage', handleUpdate);
     };

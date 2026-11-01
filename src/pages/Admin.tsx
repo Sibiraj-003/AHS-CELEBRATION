@@ -274,7 +274,11 @@ export const Admin: React.FC = () => {
 
   // Helper to build robust direct invitation URL with parameters
   const getProfileUrl = (profile: Profile) => {
-    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    let origin = typeof window !== 'undefined' ? window.location.origin : '';
+    // Normalize any private Vercel preview deployment URL to the public canonical production domain
+    if (origin.includes('.vercel.app') && (origin.includes('sibirajs-projects') || origin.includes('-git-') || origin.split('-').length > 2)) {
+      origin = 'https://ahs-celebration.vercel.app';
+    }
     const event = profile.eventType || profile.event || 'freshers';
     const reg = profile.regNo || profile.id;
     return `${origin}/profile/${profile.id}?name=${encodeURIComponent(profile.name)}&reg=${encodeURIComponent(reg)}&event=${event}`;

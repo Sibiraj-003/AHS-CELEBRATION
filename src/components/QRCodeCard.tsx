@@ -20,9 +20,16 @@ export const QRCodeCard: React.FC<QRCodeCardProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
 
-  // Compute full URL for QR code
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
-  const profileUrl = `${origin}/profile/${profileId}`;
+  // Compute full URL for QR code, normalizing any Vercel preview hash to the canonical public domain
+  const getCleanOrigin = () => {
+    if (typeof window === 'undefined') return '';
+    const host = window.location.host;
+    if (host.includes('vercel.app') && (host.includes('sibirajs-projects') || host.includes('-git-') || host.split('-').length > 2)) {
+      return 'https://ahs-celebration.vercel.app';
+    }
+    return window.location.origin;
+  };
+  const profileUrl = `${getCleanOrigin()}/profile/${profileId}`;
 
   const handleCopyLink = async () => {
     try {

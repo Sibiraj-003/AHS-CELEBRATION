@@ -100,7 +100,13 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
               alt={`${profile.name} portrait`}
               className="invitation-photo-img"
               loading="eager"
-              crossOrigin="anonymous"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (!target.dataset.fallbackTried) {
+                  target.dataset.fallbackTried = 'true';
+                  target.src = `/photos/${profile.id.toLowerCase().replace(/[^a-z0-9_-]/g, '')}.jpg`;
+                }
+              }}
             />
           ) : (
             <div className="invitation-photo-empty">

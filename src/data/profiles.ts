@@ -27,8 +27,9 @@ export const EVENT_DETAILS = {
 export const STORAGE_KEY = 'ahs_profiles_data_2026_clean';
 
 export const ATTENDEE_CLOUD_PHOTOS: Record<string, string> = {
-  'sowndariya': 'https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/sowndariya.jpg',
-  'img-20261101-wa0013': 'https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/sowndariya.jpg',
+  'sowndariya': '/photos/sowndariya.jpg',
+  'soundariya': '/photos/sowndariya.jpg',
+  'img-20261101-wa0013': '/photos/sowndariya.jpg',
 };
 
 // Map Supabase row to Profile
@@ -166,7 +167,18 @@ export async function uploadPhotoToSupabase(file: File, id: string): Promise<str
 }
 
 // Default Profiles list starts completely empty so admin can add custom attendees
-export const DEFAULT_PROFILES: Profile[] = [];
+export const DEFAULT_PROFILES: Profile[] = [
+  {
+    id: 'sowndariya',
+    name: 'Sowndariya',
+    regNo: 'SOWNDARIYA',
+    eventType: 'freshers',
+    event: 'freshers',
+    photo: '/photos/sowndariya.jpg',
+    role: 'AHS Batch 2026',
+    quote: '',
+  },
+];
 
 export const PROFILES: Profile[] = DEFAULT_PROFILES;
 
@@ -351,7 +363,7 @@ export function findProfileById(id: string, profilesList?: Profile[]): Profile |
   const cleanId = id.trim().toUpperCase().replace(/[-\s]/g, "_");
   const slugId = id.trim().toLowerCase().replace(/[\s_]+/g, "-");
 
-  return list.find(p => {
+  const found = list.find(p => {
     const pId = p.id ? normalizeString(p.id) : '';
     const pReg = p.regNo ? normalizeString(p.regNo) : '';
     const pName = p.name ? normalizeString(p.name) : '';
@@ -370,4 +382,29 @@ export function findProfileById(id: string, profilesList?: Profile[]): Profile |
       pName === normalizedId
     );
   });
+
+  if (found) {
+    if ((!found.photo || found.photo === '') && ATTENDEE_CLOUD_PHOTOS[slugId]) {
+      found.photo = ATTENDEE_CLOUD_PHOTOS[slugId];
+    }
+    return found;
+  }
+
+  // Fallback to default pre-loaded profiles
+  const def = DEFAULT_PROFILES.find(p => p.id.toLowerCase() === slugId);
+  if (def) return def;
+
+  if (ATTENDEE_CLOUD_PHOTOS[slugId]) {
+    return {
+      id: slugId,
+      name: slugId.charAt(0).toUpperCase() + slugId.slice(1),
+      regNo: slugId.toUpperCase(),
+      eventType: 'freshers',
+      event: 'freshers',
+      photo: ATTENDEE_CLOUD_PHOTOS[slugId],
+      role: 'AHS Batch 2026',
+    };
+  }
+
+  return undefined;
 }

@@ -71,7 +71,24 @@ export const Profile: React.FC = () => {
     return synthesized;
   }, [profileId, searchParams]);
 
-  const activeProfile = liveProfile || profile;
+  const activeProfile = useMemo(() => {
+    const base = liveProfile || profile;
+    if (!base) return undefined;
+    const paramPhoto = searchParams.get('photo');
+    const photo = (liveProfile?.photo && liveProfile.photo.trim() !== '')
+      ? liveProfile.photo
+      : (paramPhoto && paramPhoto.trim() !== '')
+        ? paramPhoto
+        : (profile?.photo && profile.photo.trim() !== '')
+          ? profile.photo
+          : '';
+
+    return {
+      ...base,
+      photo,
+    };
+  }, [liveProfile, profile, searchParams]);
+
   const isFreshers = activeProfile ? (activeProfile.eventType || activeProfile.event) === 'freshers' : true;
 
   return (

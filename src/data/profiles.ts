@@ -59,8 +59,15 @@ export async function fetchProfilesFromSupabase(): Promise<Profile[]> {
 
 // Fetch single profile by ID from Supabase
 export async function fetchProfileByIdFromSupabase(id: string): Promise<Profile | undefined> {
+  const cleanId = (id || '').trim().toLowerCase();
   try {
-    const { data, error } = await supabase.from('profiles').select('*').eq('id', id).single();
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .or(`id.ilike.${cleanId},reg_no.ilike.${cleanId}`)
+      .limit(1)
+      .maybeSingle();
+
     if (!error && data) {
       const p = mapRowToProfile(data);
       addStoredProfile(p);

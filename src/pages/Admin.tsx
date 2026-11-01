@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { QRCodeCanvas } from 'qrcode.react';
 import {
   useProfiles,
+  findProfileById,
   addStoredProfile,
   updateStoredProfile,
   deleteStoredProfile,
@@ -243,9 +244,17 @@ export const Admin: React.FC = () => {
       showNotification('Uploading photo to cloud for universal QR access...', 'success');
       const photoUrl = await uploadPhotoToServer(file, targetQuickProfileId);
       updateStoredProfile(targetQuickProfileId, { photo: photoUrl });
-      const target = profiles.find(p => p.id === targetQuickProfileId);
+      const target = profiles.find(p => p.id === targetQuickProfileId) || findProfileById(targetQuickProfileId);
       if (target) {
         await upsertProfileToSupabase({ ...target, photo: photoUrl });
+      } else {
+        await upsertProfileToSupabase({
+          id: targetQuickProfileId,
+          name: targetQuickProfileId.charAt(0).toUpperCase() + targetQuickProfileId.slice(1),
+          regNo: targetQuickProfileId.toUpperCase(),
+          eventType: 'freshers',
+          photo: photoUrl,
+        });
       }
       if (photoUrl.startsWith('http')) {
         showNotification('Photo synced to cloud! Visible on all phones when scanning QR.');

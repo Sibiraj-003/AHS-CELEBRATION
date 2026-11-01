@@ -42,7 +42,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
 
         {/* Top Header Badge */}
         <div className="profile-card__header">
-          <EventBadge event={profile.event} size="md" />
+          <EventBadge event={profile.event || profile.eventType || 'freshers'} size="md" />
         </div>
 
         {/* Portrait Photo */}
@@ -97,7 +97,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
           <QRCodeCard
             profileId={profile.id}
             name={profile.name}
-            event={profile.event}
+            event={profile.event || profile.eventType || 'freshers'}
             size={155}
           />
         </div>

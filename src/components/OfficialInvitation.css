@@ -1,0 +1,349 @@
+.official-invitation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Action Toolbar */
+.invitation-action-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.theme-freshers .btn-share {
+  background: rgba(22, 119, 255, 0.15);
+  border: 1px solid rgba(66, 217, 255, 0.4);
+  color: #42D9FF;
+}
+
+.theme-freshers .btn-share:hover {
+  background: rgba(22, 119, 255, 0.3);
+  box-shadow: 0 0 16px rgba(66, 217, 255, 0.4);
+}
+
+.theme-freshers .btn-print {
+  background: linear-gradient(135deg, #1677FF, #0052cc);
+  border: 1px solid rgba(66, 217, 255, 0.5);
+  color: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(22, 119, 255, 0.35);
+}
+
+.theme-freshers .btn-print:hover {
+  background: linear-gradient(135deg, #2884ff, #1677FF);
+  box-shadow: 0 6px 24px rgba(66, 217, 255, 0.5);
+}
+
+.theme-farewell .btn-share {
+  background: rgba(124, 92, 255, 0.15);
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  color: #C084FC;
+}
+
+.theme-farewell .btn-share:hover {
+  background: rgba(124, 92, 255, 0.3);
+  box-shadow: 0 0 16px rgba(192, 132, 252, 0.4);
+}
+
+.theme-farewell .btn-print {
+  background: linear-gradient(135deg, #7C5CFF, #5b36ea);
+  border: 1px solid rgba(192, 132, 252, 0.5);
+  color: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(124, 92, 255, 0.35);
+}
+
+.theme-farewell .btn-print:hover {
+  background: linear-gradient(135deg, #9072ff, #7C5CFF);
+  box-shadow: 0 6px 24px rgba(192, 132, 252, 0.5);
+}
+
+/* Poster Card */
+.invitation-poster-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 682 / 1024;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #050914;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-freshers .invitation-poster-card {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(66, 217, 255, 0.25);
+  border: 1px solid rgba(66, 217, 255, 0.3);
+}
+
+.theme-farewell .invitation-poster-card {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(192, 132, 252, 0.25);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+}
+
+.invitation-template-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 1. Circular Photo Slot inside Laurel Wreath */
+.invitation-photo-slot {
+  position: absolute;
+  top: 27.2%;
+  left: 28.7%;
+  width: 42.6%;
+  height: 28.4%;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 5;
+  background: #020610;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-freshers .invitation-photo-slot {
+  border: 3px solid #42D9FF;
+  box-shadow: 0 0 24px rgba(66, 217, 255, 0.7), inset 0 0 15px rgba(66, 217, 255, 0.4);
+}
+
+.theme-farewell .invitation-photo-slot {
+  border: 3px solid #C084FC;
+  box-shadow: 0 0 24px rgba(192, 132, 252, 0.7), inset 0 0 15px rgba(192, 132, 252, 0.4);
+}
+
+.invitation-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.invitation-photo-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 16, 0.98) 100%);
+  color: #94A3B8;
+}
+
+.photo-initials {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.theme-freshers .photo-initials {
+  color: #42D9FF;
+  text-shadow: 0 0 15px rgba(66, 217, 255, 0.6);
+}
+
+.theme-farewell .photo-initials {
+  color: #C084FC;
+  text-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
+}
+
+.photo-empty-icon {
+  opacity: 0.6;
+}
+
+/* 2. Ribbon Name Overlay */
+.invitation-ribbon-name {
+  position: absolute;
+  top: 51.6%;
+  left: 17%;
+  width: 66%;
+  height: 6.2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.ribbon-text {
+  font-family: 'Great Vibes', 'Alex Brush', 'Dancing Script', cursive;
+  font-size: clamp(1.4rem, 4.4vw, 2.3rem);
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 0.5rem;
+}
+
+.theme-freshers .ribbon-text {
+  color: #081d3a;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.65), 0 0 8px rgba(66, 217, 255, 0.4);
+}
+
+.theme-farewell .ribbon-text {
+  color: #210740;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.65), 0 0 8px rgba(192, 132, 252, 0.4);
+}
+
+/* 3. Reg. No. Pill Badge Overlay */
+.invitation-regno-pill {
+  position: absolute;
+  top: 58.2%;
+  left: 27%;
+  width: 46%;
+  height: 3.9%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  border-radius: 9999px;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.72rem, 1.9vw, 0.95rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.theme-freshers .invitation-regno-pill {
+  background: #040e1e;
+  border: 1.5px solid #42D9FF;
+  color: #FFFFFF;
+  box-shadow: 0 0 14px rgba(66, 217, 255, 0.6), inset 0 0 8px rgba(66, 217, 255, 0.2);
+}
+
+.theme-farewell .invitation-regno-pill {
+  background: #110620;
+  border: 1.5px solid #C084FC;
+  color: #FFFFFF;
+  box-shadow: 0 0 14px rgba(192, 132, 252, 0.6), inset 0 0 8px rgba(192, 132, 252, 0.2);
+}
+
+/* 4. Personalized Salutation Block Overlay */
+.invitation-greeting-block {
+  position: absolute;
+  top: 65.4%;
+  left: 9%;
+  width: 82%;
+  height: 10.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(4, 9, 20, 0.92);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 0.5rem;
+  z-index: 8;
+}
+
+.greeting-salutation {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 2.4vw, 1.35rem);
+  font-weight: 700;
+  color: #F8FAFC;
+  margin: 0 0 0.15rem 0;
+  line-height: 1.2;
+}
+
+.greeting-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.72rem, 1.7vw, 0.9rem);
+  color: #CBD5E1;
+  margin: 0 0 0.15rem 0;
+  line-height: 1.2;
+}
+
+.greeting-event-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.92rem, 2.3vw, 1.3rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.theme-freshers .greeting-event-title {
+  color: #42D9FF;
+  text-shadow: 0 0 12px rgba(66, 217, 255, 0.5);
+}
+
+.theme-farewell .greeting-event-title {
+  color: #C084FC;
+  text-shadow: 0 0 12px rgba(192, 132, 252, 0.5);
+}
+
+/* Quick Meta Bar */
+.invitation-quick-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94A3B8;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.theme-freshers .meta-icon {
+  color: #42D9FF;
+}
+
+.theme-farewell .meta-icon {
+  color: #C084FC;
+}
+
+/* Print styling */
+@media print {
+  body {
+    background: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .official-invitation-container {
+    max-width: 100% !important;
+  }
+  .invitation-poster-card {
+    box-shadow: none !important;
+    border: none !important;
+  }
+}

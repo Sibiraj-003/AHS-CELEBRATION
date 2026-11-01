@@ -59,7 +59,7 @@
 
 .profile-view-wrapper {
   width: 100%;
-  max-width: 480px;
+  max-width: 540px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,31 +68,41 @@
 
 .profile-view-header {
   text-align: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .profile-view-tag {
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.2em;
-  color: #42D9FF;
-  background: rgba(66, 217, 255, 0.1);
-  border: 1px solid rgba(66, 217, 255, 0.25);
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.85rem;
   border-radius: 9999px;
   display: inline-block;
   margin-bottom: 0.5rem;
 }
 
+.tag-freshers {
+  color: #42D9FF;
+  background: rgba(66, 217, 255, 0.1);
+  border: 1px solid rgba(66, 217, 255, 0.3);
+}
+
+.tag-farewell {
+  color: #C084FC;
+  background: rgba(192, 132, 252, 0.1);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+}
+
 .profile-view-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: #F8FAFC;
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.02em;
 }
 
 .profile-view-sub {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #94A3B8;
   margin: 0;
 }
@@ -102,7 +112,34 @@
 }
 
 .profile-view-actions {
-  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.btn-toggle-qr {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #42D9FF;
+  background: rgba(66, 217, 255, 0.12);
+  border: 1px solid rgba(66, 217, 255, 0.35);
+  border-radius: 9999px;
+  padding: 0.6rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-toggle-qr:hover {
+  background: rgba(66, 217, 255, 0.25);
+  box-shadow: 0 0 16px rgba(66, 217, 255, 0.35);
+  transform: translateY(-1px);
 }
 
 .profile-home-btn {
@@ -123,6 +160,13 @@
 .profile-home-btn:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #F8FAFC;
+}
+
+.profile-qr-box-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  animation: slideDown 0.3s ease-out;
 }
 
 /* Not Found View */

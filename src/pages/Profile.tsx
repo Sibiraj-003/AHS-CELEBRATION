@@ -1,17 +1,21 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { findProfileById, EVENT_DETAILS } from '../data/profiles';
-import ProfileCard from '../components/ProfileCard';
-import { ArrowLeft, ShieldCheck, AlertCircle, Home as HomeIcon } from 'lucide-react';
+import OfficialInvitation from '../components/OfficialInvitation';
+import QRCodeCard from '../components/QRCodeCard';
+import { ArrowLeft, ShieldCheck, AlertCircle, Home as HomeIcon, QrCode } from 'lucide-react';
 import './Profile.css';
 
 export const Profile: React.FC = () => {
   const { profileId } = useParams<{ profileId: string }>();
+  const [showQR, setShowQR] = useState(false);
 
   const profile = useMemo(() => {
     if (!profileId) return undefined;
     return findProfileById(profileId);
   }, [profileId]);
+
+  const isFreshers = profile ? (profile.eventType || profile.event) === 'freshers' : true;
 
   return (
     <div className="profile-page">
@@ -33,28 +37,51 @@ export const Profile: React.FC = () => {
         {profile ? (
           <div className="profile-view-wrapper">
             <div className="profile-view-header">
-              <span className="profile-view-tag">VERIFIED ATTENDEE PASS</span>
-              <h1 className="profile-view-title">Personalized Invitation</h1>
+              <span className={`profile-view-tag ${isFreshers ? 'tag-freshers' : 'tag-farewell'}`}>
+                {isFreshers ? 'FRESHERS DAY 2026' : 'FAREWELL DAY 2026'}
+              </span>
+              <h1 className="profile-view-title">{profile.name}</h1>
               <p className="profile-view-sub">
-                Official digital pass for <strong>{profile.name}</strong> • {profile.event === 'freshers' ? 'Freshers Day 2026' : 'Farewell Day 2026'}
+                Reg. No: <strong>{profile.regNo || profile.id}</strong> • Official Personalized Digital Pass
               </p>
             </div>
 
-            {/* The Result Card */}
-            <ProfileCard profile={profile} autoOpenInvitation={false} />
+            {/* Official Invitation Poster matching exact reference designs */}
+            <OfficialInvitation profile={profile} />
 
+            {/* Additional Pass Controls */}
             <div className="profile-view-actions">
+              <button
+                type="button"
+                className="btn-toggle-qr"
+                onClick={() => setShowQR(!showQR)}
+              >
+                <QrCode size={18} />
+                <span>{showQR ? 'Hide Digital QR Pass' : 'View Digital QR Pass'}</span>
+              </button>
+
               <Link to="/" className="profile-home-btn">
                 <HomeIcon size={16} />
-                <span>Search Another Attendee</span>
+                <span>Event Home Portal</span>
               </Link>
             </div>
+
+            {/* Digital QR Pass Box */}
+            {showQR && (
+              <div className="profile-qr-box-wrap">
+                <QRCodeCard
+                  profileId={profile.id}
+                  name={profile.name}
+                  event={profile.eventType || profile.event || 'freshers'}
+                />
+              </div>
+            )}
           </div>
         ) : (
           <div className="profile-not-found">
             <AlertCircle size={48} className="not-found-icon" />
             <h2>We couldn't find your invitation.</h2>
-            <p>Please check the invitation code or search by your name on the main portal.</p>
+            <p>Please check the invitation link or search by your name on the main portal.</p>
             <Link to="/" className="btn-return-home">
               <ArrowLeft size={16} />
               <span>Go to Event Home</span>

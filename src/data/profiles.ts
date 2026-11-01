@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react';
 export interface Profile {
   id: string;
   name: string;
-  event: "freshers" | "farewell";
-  photo: string;
+  regNo: string;
+  eventType: "freshers" | "farewell";
+  event?: "freshers" | "farewell"; // backward compatibility alias
+  photo?: string;
+  qrCode?: string;
   role?: string;
   quote?: string;
 }
@@ -44,7 +47,13 @@ export function loadStoredProfiles(): Profile[] {
     }
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) {
-      return parsed;
+      return parsed.map((p: any) => ({
+        ...p,
+        regNo: p.regNo || p.id,
+        eventType: p.eventType || p.event || 'freshers',
+        event: p.event || p.eventType || 'freshers',
+        photo: p.photo || ''
+      }));
     }
   } catch (err) {
     console.error('Error loading profiles from localStorage:', err);
@@ -185,10 +194,32 @@ export function findProfileByName(query: string, profilesList?: Profile[]): Prof
 }
 
 /**
- * Finds a profile strictly by ID
+ * Finds a profile by ID, RegNo, or URL slug
  */
 export function findProfileById(id: string, profilesList?: Profile[]): Profile | undefined {
   const list = profilesList || loadStoredProfiles();
+  if (!id) return undefined;
+  const normalizedId = normalizeString(id);
   const cleanId = id.trim().toUpperCase().replace(/[-\s]/g, "_");
-  return list.find(p => p.id === cleanId || normalizeString(p.id) === normalizeString(id));
+  const slugId = id.trim().toLowerCase().replace(/[\s_]+/g, "-");
+
+  return list.find(p => {
+    const pId = p.id ? normalizeString(p.id) : '';
+    const pReg = p.regNo ? normalizeString(p.regNo) : '';
+    const pName = p.name ? normalizeString(p.name) : '';
+    const pSlug = p.id ? p.id.toLowerCase().replace(/[\s_]+/g, '-') : '';
+
+    return (
+      p.id === id ||
+      p.id.toLowerCase() === id.toLowerCase() ||
+      p.id === cleanId ||
+      p.regNo === id ||
+      p.regNo.toLowerCase() === id.toLowerCase() ||
+      p.regNo === cleanId ||
+      pSlug === slugId ||
+      pId === normalizedId ||
+      pReg === normalizedId ||
+      pName === normalizedId
+    );
+  });
 }

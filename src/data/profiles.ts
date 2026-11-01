@@ -26,15 +26,22 @@ export const EVENT_DETAILS = {
 
 export const STORAGE_KEY = 'ahs_profiles_data_2026_clean';
 
+export const ATTENDEE_CLOUD_PHOTOS: Record<string, string> = {
+  'sowndariya': 'https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/sowndariya.jpg',
+  'img-20261101-wa0013': 'https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/sowndariya.jpg',
+};
+
 // Map Supabase row to Profile
 export function mapRowToProfile(row: any): Profile {
+  const cleanId = (row.id || '').trim().toLowerCase();
+  const photo = row.photo || ATTENDEE_CLOUD_PHOTOS[cleanId] || '';
   return {
     id: row.id,
     name: row.name,
     regNo: row.reg_no || row.id,
     eventType: (row.event_type || 'freshers') as 'freshers' | 'farewell',
     event: (row.event_type || 'freshers') as 'freshers' | 'farewell',
-    photo: row.photo || '',
+    photo,
     role: row.role || '',
     quote: row.quote || '',
   };
@@ -76,6 +83,29 @@ export async function fetchProfileByIdFromSupabase(id: string): Promise<Profile 
   } catch (err) {
     console.warn('Supabase fetchProfileById failed:', err);
   }
+
+  // REST fallback
+  try {
+    const supabaseUrl = 'https://fkunjtrdccsuslaefdch.supabase.co';
+    const anonKey = 'sb_publishable_w6JySw5FJpVUaoYsmYrOPw__gSWywyo';
+    const restRes = await fetch(`${supabaseUrl}/rest/v1/profiles?or=(id.ilike.${cleanId},reg_no.ilike.${cleanId})&limit=1`, {
+      headers: {
+        'apikey': anonKey,
+        'Authorization': `Bearer ${anonKey}`,
+      },
+    });
+    if (restRes.ok) {
+      const rows = await restRes.json();
+      if (Array.isArray(rows) && rows.length > 0) {
+        const p = mapRowToProfile(rows[0]);
+        addStoredProfile(p);
+        return p;
+      }
+    }
+  } catch (restErr) {
+    console.warn('REST fallback failed:', restErr);
+  }
+
   return findProfileById(id);
 }
 

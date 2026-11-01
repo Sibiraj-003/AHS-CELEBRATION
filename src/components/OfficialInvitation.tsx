@@ -100,6 +100,7 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
               alt={`${profile.name} portrait`}
               className="invitation-photo-img"
               loading="eager"
+              crossOrigin="anonymous"
             />
           ) : (
             <div className="invitation-photo-empty">

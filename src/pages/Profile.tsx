@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
-import { findProfileById, addStoredProfile, fetchProfileByIdFromSupabase, EVENT_DETAILS, type Profile as ProfileType } from '../data/profiles';
+import { findProfileById, addStoredProfile, fetchProfileByIdFromSupabase, ATTENDEE_CLOUD_PHOTOS, EVENT_DETAILS, type Profile as ProfileType } from '../data/profiles';
 import OfficialInvitation from '../components/OfficialInvitation';
 import QRCodeCard from '../components/QRCodeCard';
 import { ArrowLeft, ShieldCheck, AlertCircle, Home as HomeIcon, QrCode } from 'lucide-react';
@@ -24,13 +24,14 @@ export const Profile: React.FC = () => {
 
   const profile = useMemo(() => {
     if (!profileId) return undefined;
+    const cleanSlug = profileId.toLowerCase().trim();
 
     // 1. Try finding in local storage roster
     const existing = findProfileById(profileId);
     const paramPhoto = searchParams.get('photo');
     if (existing) {
-      if ((!existing.photo || existing.photo === '') && paramPhoto) {
-        existing.photo = paramPhoto;
+      if ((!existing.photo || existing.photo === '') && (paramPhoto || ATTENDEE_CLOUD_PHOTOS[cleanSlug])) {
+        existing.photo = paramPhoto || ATTENDEE_CLOUD_PHOTOS[cleanSlug] || '';
       }
       return existing;
     }
@@ -51,13 +52,14 @@ export const Profile: React.FC = () => {
     const cleanRegNo = paramReg || profileId.toUpperCase().replace(/[-\s]/g, '_');
     const cleanEventType = paramEvent === 'farewell' ? 'farewell' : 'freshers';
 
+    const synthesizedId = profileId.toLowerCase().replace(/[\s_]+/g, '-');
     const synthesized: ProfileType = {
-      id: profileId.toLowerCase().replace(/[\s_]+/g, '-'),
+      id: synthesizedId,
       name: paramName || fallbackName,
       regNo: cleanRegNo,
       eventType: cleanEventType,
       event: cleanEventType,
-      photo: paramPhoto || '',
+      photo: paramPhoto || ATTENDEE_CLOUD_PHOTOS[cleanSlug] || ATTENDEE_CLOUD_PHOTOS[synthesizedId] || '',
       role: cleanEventType === 'farewell' ? 'AHS Graduating Senior' : 'AHS Batch 2026',
     };
 
@@ -74,6 +76,7 @@ export const Profile: React.FC = () => {
   const activeProfile = useMemo(() => {
     const base = liveProfile || profile;
     if (!base) return undefined;
+    const cleanId = (profileId || '').toLowerCase().trim();
     const paramPhoto = searchParams.get('photo');
     const photo = (liveProfile?.photo && liveProfile.photo.trim() !== '')
       ? liveProfile.photo
@@ -81,13 +84,13 @@ export const Profile: React.FC = () => {
         ? paramPhoto
         : (profile?.photo && profile.photo.trim() !== '')
           ? profile.photo
-          : '';
+          : (ATTENDEE_CLOUD_PHOTOS[cleanId] || '');
 
     return {
       ...base,
       photo,
     };
-  }, [liveProfile, profile, searchParams]);
+  }, [liveProfile, profile, searchParams, profileId]);
 
   const isFreshers = activeProfile ? (activeProfile.eventType || activeProfile.event) === 'freshers' : true;
 

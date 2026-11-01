@@ -11,6 +11,7 @@ import {
   upsertProfileToSupabase,
   deleteProfileFromSupabase,
   uploadPhotoToSupabase,
+  ATTENDEE_CLOUD_PHOTOS,
   EVENT_DETAILS,
 } from '../data/profiles';
 import type { Profile } from '../data/profiles';
@@ -349,16 +350,15 @@ export const Admin: React.FC = () => {
 
   // Helper to build robust direct invitation URL with parameters
   const getProfileUrl = (profile: Profile) => {
-    let origin = typeof window !== 'undefined' ? window.location.origin : '';
-    // Normalize any private Vercel preview deployment URL to the public canonical production domain
-    if (origin.includes('.vercel.app') && (origin.includes('sibirajs-projects') || origin.includes('-git-') || origin.split('-').length > 2)) {
-      origin = 'https://ahs-celebration.vercel.app';
-    }
+    // For QR codes and universal sharing, always encode the canonical live production domain
+    const origin = 'https://ahs-celebration.vercel.app';
     const event = profile.eventType || profile.event || 'freshers';
     const reg = profile.regNo || profile.id;
     let url = `${origin}/profile/${profile.id}?name=${encodeURIComponent(profile.name)}&reg=${encodeURIComponent(reg)}&event=${event}`;
-    if (profile.photo && profile.photo.startsWith('http')) {
-      url += `&photo=${encodeURIComponent(profile.photo)}`;
+    const cleanId = (profile.id || '').toLowerCase().trim();
+    const photo = profile.photo || ATTENDEE_CLOUD_PHOTOS[cleanId];
+    if (photo && photo.startsWith('http')) {
+      url += `&photo=${encodeURIComponent(photo)}`;
     }
     return url;
   };
@@ -367,8 +367,10 @@ export const Admin: React.FC = () => {
     const event = profile.eventType || profile.event || 'freshers';
     const reg = profile.regNo || profile.id;
     let path = `/profile/${profile.id}?name=${encodeURIComponent(profile.name)}&reg=${encodeURIComponent(reg)}&event=${event}`;
-    if (profile.photo && profile.photo.startsWith('http')) {
-      path += `&photo=${encodeURIComponent(profile.photo)}`;
+    const cleanId = (profile.id || '').toLowerCase().trim();
+    const photo = profile.photo || ATTENDEE_CLOUD_PHOTOS[cleanId];
+    if (photo && photo.startsWith('http')) {
+      path += `&photo=${encodeURIComponent(photo)}`;
     }
     return path;
   };

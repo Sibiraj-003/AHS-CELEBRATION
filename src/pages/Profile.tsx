@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { findProfileById, EVENT_DETAILS } from '../data/profiles';
+import { useParams, useSearchParams, Link } from 'react-router-dom';
+import { findProfileById, addStoredProfile, EVENT_DETAILS, type Profile as ProfileType } from '../data/profiles';
 import OfficialInvitation from '../components/OfficialInvitation';
 import QRCodeCard from '../components/QRCodeCard';
 import { ArrowLeft, ShieldCheck, AlertCircle, Home as HomeIcon, QrCode } from 'lucide-react';
@@ -8,12 +8,52 @@ import './Profile.css';
 
 export const Profile: React.FC = () => {
   const { profileId } = useParams<{ profileId: string }>();
+  const [searchParams] = useSearchParams();
   const [showQR, setShowQR] = useState(false);
 
   const profile = useMemo(() => {
     if (!profileId) return undefined;
-    return findProfileById(profileId);
-  }, [profileId]);
+
+    // 1. Try finding in local storage roster
+    const existing = findProfileById(profileId);
+    if (existing) return existing;
+
+    // 2. If not found in this browser's localStorage (e.g. scanned on a new phone),
+    // synthesize from slug and URL parameters:
+    const paramName = searchParams.get('name');
+    const paramReg = searchParams.get('reg') || searchParams.get('regNo');
+    const paramEvent = (searchParams.get('event') || searchParams.get('eventType')) as 'freshers' | 'farewell' | null;
+    const paramPhoto = searchParams.get('photo');
+
+    // Humanize slug into pretty display name: e.g. "sowndariya" -> "Sowndariya", "harini-varsha" -> "Harini Varsha"
+    const fallbackName = profileId
+      .split(/[-_]+/)
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+      .join(' ')
+      .trim();
+
+    const cleanRegNo = paramReg || profileId.toUpperCase().replace(/[-\s]/g, '_');
+    const cleanEventType = paramEvent === 'farewell' ? 'farewell' : 'freshers';
+
+    const synthesized: ProfileType = {
+      id: profileId.toLowerCase().replace(/[\s_]+/g, '-'),
+      name: paramName || fallbackName,
+      regNo: cleanRegNo,
+      eventType: cleanEventType,
+      event: cleanEventType,
+      photo: paramPhoto || '',
+      role: cleanEventType === 'farewell' ? 'AHS Graduating Senior' : 'AHS Batch 2026',
+    };
+
+    // Auto-save so subsequent navigation or refresh retains this profile on this device
+    try {
+      addStoredProfile(synthesized);
+    } catch {
+      // quota safeguard
+    }
+
+    return synthesized;
+  }, [profileId, searchParams]);
 
   const isFreshers = profile ? (profile.eventType || profile.event) === 'freshers' : true;
 

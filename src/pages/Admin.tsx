@@ -272,9 +272,24 @@ export const Admin: React.FC = () => {
     }
   };
 
+  // Helper to build robust direct invitation URL with parameters
+  const getProfileUrl = (profile: Profile) => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    const event = profile.eventType || profile.event || 'freshers';
+    const reg = profile.regNo || profile.id;
+    return `${origin}/profile/${profile.id}?name=${encodeURIComponent(profile.name)}&reg=${encodeURIComponent(reg)}&event=${event}`;
+  };
+
+  const getProfilePath = (profile: Profile) => {
+    const event = profile.eventType || profile.event || 'freshers';
+    const reg = profile.regNo || profile.id;
+    return `/profile/${profile.id}?name=${encodeURIComponent(profile.name)}&reg=${encodeURIComponent(reg)}&event=${event}`;
+  };
+
   // Download QR Code PNG
   const downloadQR = (profile: Profile) => {
-    const canvas = document.getElementById(`qr-canvas-${profile.id}`) as HTMLCanvasElement;
+    const canvas = (document.getElementById(`qr-modal-canvas-${profile.id}`) ||
+      document.getElementById(`qr-canvas-${profile.id}`)) as HTMLCanvasElement;
     if (canvas) {
       const pngUrl = canvas.toDataURL('image/png');
       const downloadLink = document.createElement('a');
@@ -290,8 +305,7 @@ export const Admin: React.FC = () => {
   };
 
   const copyQRLink = async (profile: Profile) => {
-    const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    const url = `${origin}/profile/${profile.id}`;
+    const url = getProfileUrl(profile);
     await navigator.clipboard.writeText(url);
     showNotification('Invitation link copied to clipboard!');
   };
@@ -644,7 +658,7 @@ export const Admin: React.FC = () => {
                       </button>
 
                       <Link
-                        to={`/profile/${profile.id}`}
+                        to={getProfilePath(profile)}
                         target="_blank"
                         rel="noreferrer"
                         className="btn-card-cta btn-preview-cta"
@@ -811,7 +825,7 @@ export const Admin: React.FC = () => {
                         <td className="cell-actions">
                           <div className="manage-btn-group">
                             <Link
-                              to={`/profile/${profile.id}`}
+                              to={getProfilePath(profile)}
                               target="_blank"
                               rel="noreferrer"
                               className="btn-icon-action btn-view"
@@ -1073,11 +1087,7 @@ export const Admin: React.FC = () => {
               <div className="qr-modal-preview-box">
                 <QRCodeCanvas
                   id={`qr-modal-canvas-${selectedQRProfile.id}`}
-                  value={
-                    typeof window !== 'undefined'
-                      ? `${window.location.origin}/profile/${selectedQRProfile.id}`
-                      : `/profile/${selectedQRProfile.id}`
-                  }
+                  value={getProfileUrl(selectedQRProfile)}
                   size={220}
                   level="H"
                   includeMargin={true}
@@ -1093,7 +1103,7 @@ export const Admin: React.FC = () => {
                 <p className="qr-attendee-regno">Reg. No : {selectedQRProfile.regNo || selectedQRProfile.id}</p>
                 <div className="qr-link-box">
                   <span className="qr-url-text">
-                    {typeof window !== 'undefined' ? `${window.location.origin}/profile/${selectedQRProfile.id}` : `/profile/${selectedQRProfile.id}`}
+                    {getProfileUrl(selectedQRProfile)}
                   </span>
                 </div>
               </div>
@@ -1117,7 +1127,7 @@ export const Admin: React.FC = () => {
                   <span>Copy Direct URL</span>
                 </button>
                 <Link
-                  to={`/profile/${selectedQRProfile.id}`}
+                  to={getProfilePath(selectedQRProfile)}
                   target="_blank"
                   rel="noreferrer"
                   className="btn-qr-modal btn-open-invitation"

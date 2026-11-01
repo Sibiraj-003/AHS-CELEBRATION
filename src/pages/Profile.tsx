@@ -16,14 +16,19 @@ export const Profile: React.FC = () => {
 
     // 1. Try finding in local storage roster
     const existing = findProfileById(profileId);
-    if (existing) return existing;
+    const paramPhoto = searchParams.get('photo');
+    if (existing) {
+      if ((!existing.photo || existing.photo === '') && paramPhoto) {
+        existing.photo = paramPhoto;
+      }
+      return existing;
+    }
 
     // 2. If not found in this browser's localStorage (e.g. scanned on a new phone),
     // synthesize from slug and URL parameters:
     const paramName = searchParams.get('name');
     const paramReg = searchParams.get('reg') || searchParams.get('regNo');
     const paramEvent = (searchParams.get('event') || searchParams.get('eventType')) as 'freshers' | 'farewell' | null;
-    const paramPhoto = searchParams.get('photo');
 
     // Humanize slug into pretty display name: e.g. "sowndariya" -> "Sowndariya", "harini-varsha" -> "Harini Varsha"
     const fallbackName = profileId

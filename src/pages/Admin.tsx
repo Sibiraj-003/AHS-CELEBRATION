@@ -178,13 +178,46 @@ export const Admin: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
+
+  const uploadPhotoToServer = async (file: File, idHint: string): Promise<string> => {
+    setIsUploadingPhoto(true);
+    try {
+      const base64 = await compressImage(file);
+      // Try uploading to cloud API for permanent public link so any phone scanning the QR can see the photo
+      try {
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageBase64: base64, filename: `${idHint || 'attendee'}.jpg` }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.url && data.url.startsWith('http')) {
+            return data.url;
+          }
+        }
+      } catch (cloudErr) {
+        console.warn('Cloud upload route error, using compressed base64:', cloudErr);
+      }
+      return base64;
+    } finally {
+      setIsUploadingPhoto(false);
+    }
+  };
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     try {
-      const base64 = await compressImage(file);
-      setFormPhoto(base64);
-      showNotification('Photo uploaded successfully!');
+      showNotification('Optimizing and uploading photo...', 'success');
+      const photoUrl = await uploadPhotoToServer(file, formId || formName);
+      setFormPhoto(photoUrl);
+      if (photoUrl.startsWith('http')) {
+        showNotification('Photo uploaded to cloud! Accessible on all devices.');
+      } else {
+        showNotification('Photo saved locally!');
+      }
     } catch {
       showNotification('Failed to process image', 'error');
     }
@@ -194,9 +227,14 @@ export const Admin: React.FC = () => {
     const file = e.target.files?.[0];
     if (!file || !targetQuickProfileId) return;
     try {
-      const base64 = await compressImage(file);
-      updateStoredProfile(targetQuickProfileId, { photo: base64 });
-      showNotification('Photo uploaded successfully!');
+      showNotification('Uploading photo to cloud for universal QR access...', 'success');
+      const photoUrl = await uploadPhotoToServer(file, targetQuickProfileId);
+      updateStoredProfile(targetQuickProfileId, { photo: photoUrl });
+      if (photoUrl.startsWith('http')) {
+        showNotification('Photo synced to cloud! Visible on all phones when scanning QR.');
+      } else {
+        showNotification('Photo saved locally!');
+      }
     } catch {
       showNotification('Failed to process image', 'error');
     } finally {
@@ -281,13 +319,21 @@ export const Admin: React.FC = () => {
     }
     const event = profile.eventType || profile.event || 'freshers';
     const reg = profile.regNo || profile.id;
-    return `${origin}/profile/${profile.id}?name=${encodeURIComponent(profile.name)}&reg=${encodeURIComponent(reg)}&event=${event}`;
+    let url = `${origin}/profile/${profile.id}?name=${encodeURIComponent(profile.name)}&reg=${encodeURIComponent(reg)}&event=${event}`;
+    if (profile.photo && profile.photo.startsWith('http')) {
+      url += `&photo=${encodeURIComponent(profile.photo)}`;
+    }
+    return url;
   };
 
   const getProfilePath = (profile: Profile) => {
     const event = profile.eventType || profile.event || 'freshers';
     const reg = profile.regNo || profile.id;
-    return `/profile/${profile.id}?name=${encodeURIComponent(profile.name)}&reg=${encodeURIComponent(reg)}&event=${event}`;
+    let path = `/profile/${profile.id}?name=${encodeURIComponent(profile.name)}&reg=${encodeURIComponent(reg)}&event=${event}`;
+    if (profile.photo && profile.photo.startsWith('http')) {
+      path += `&photo=${encodeURIComponent(profile.photo)}`;
+    }
+    return path;
   };
 
   // Download QR Code PNG
@@ -939,10 +985,11 @@ export const Admin: React.FC = () => {
                     <button
                       type="button"
                       className="btn-upload-file"
+                      disabled={isUploadingPhoto}
                       onClick={() => fileInputRef.current?.click()}
                     >
                       <Upload size={16} />
-                      <span>{formPhoto ? 'Change Photo' : 'Upload From Device'}</span>
+                      <span>{isUploadingPhoto ? 'Uploading to cloud...' : formPhoto ? 'Change Photo' : 'Upload From Device'}</span>
                     </button>
                     {formPhoto && (
                       <button
@@ -954,6 +1001,16 @@ export const Admin: React.FC = () => {
                         <span>Remove</span>
                       </button>
                     )}
+                  </div>
+                  <div style={{ marginTop: '0.6rem' }}>
+                    <input
+                      type="url"
+                      className="form-input"
+                      style={{ fontSize: '0.8rem', padding: '0.4rem 0.6rem' }}
+                      placeholder="Or paste public image URL (https://...)"
+                      value={formPhoto.startsWith('http') ? formPhoto : ''}
+                      onChange={e => setFormPhoto(e.target.value.trim())}
+                    />
                   </div>
                   <p className="photo-tip">
                     Will appear inside the glowing laurel circular frame with <code>object-fit: cover</code>.

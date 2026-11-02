@@ -130,8 +130,8 @@
   letter-spacing: 0.15em;
   color: #42D9FF;
   background: rgba(66, 217, 255, 0.1);
-  border: 1px solid rgba(66, 217, 255, 0.3);
-  padding: 0.25rem 0.8rem;
+  border: 1px solid rgba(66, 217, 255, 0.18);
+  padding: 0.2rem 0.65rem;
   border-radius: 9999px;
   white-space: nowrap;
 }

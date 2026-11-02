@@ -5,7 +5,6 @@ import {
   Calendar, 
   MapPin, 
   Clock, 
-  ShieldCheck, 
   Sparkles, 
   GraduationCap, 
   HeartHandshake,
@@ -66,7 +65,6 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
         {/* 1. Header & Institution Brand */}
         <header className="ticket-header">
           <div className="institution-brand">
-            <ShieldCheck size={22} className="institution-icon" />
             <div className="institution-titles">
               <h4 className="college-name">{EVENT_DETAILS.college}</h4>
               <p className="dept-name">{EVENT_DETAILS.department}</p>

@@ -118,54 +118,51 @@
 
 .institution-brand {
   display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-}
-
-.institution-icon {
-  margin-top: 3px;
-  flex-shrink: 0;
-}
-
-.theme-freshers .institution-icon {
-  color: #42D9FF;
-}
-
-.theme-farewell .institution-icon {
-  color: #C084FC;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 .institution-titles {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 0.25rem;
+  width: 100%;
 }
 
 .college-name {
-  font-size: clamp(0.85rem, 2.2vw, 1.05rem);
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.72rem, 1.4vw, 0.88rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #F8FAFC;
-  line-height: 1.35;
+  color: #E6C687;
+  line-height: 1.5;
   margin: 0;
+  text-align: center;
 }
 
 .dept-name {
-  font-size: clamp(0.72rem, 1.8vw, 0.82rem);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.62rem, 1.2vw, 0.72rem);
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #94A3B8;
+  letter-spacing: 0.1em;
+  color: #34D399;
   text-transform: uppercase;
   margin: 0;
+  text-align: center;
 }
 
 .ticket-header-badges {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.65rem;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .ticket-kicker-badge {
@@ -564,6 +561,44 @@
     gap: 1.1rem;
   }
 
+  .ticket-header {
+    gap: 0.85rem;
+    padding-bottom: 0.95rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .college-name {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .dept-name {
+    font-size: 0.62rem;
+    text-align: center;
+  }
+
+  .ticket-header-badges {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  .ticket-kicker-badge {
+    align-self: center;
+    font-size: 0.65rem;
+  }
+
+  .ticket-event-badge {
+    align-self: center;
+    margin: 0 auto;
+    font-size: 0.76rem;
+  }
+
   .attendee-avatar-wrap {
     width: 185px;
     height: 235px;
@@ -633,9 +668,11 @@
   }
 
   .ticket-header-badges {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 0.4rem;
+    width: 100%;
   }
 
   .ticket-logistics-grid {

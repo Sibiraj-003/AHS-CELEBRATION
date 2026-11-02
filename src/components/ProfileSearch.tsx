@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, AlertCircle, ArrowRight, Sparkles } from 'lucide-react';
+import { Search, AlertCircle, ArrowRight } from 'lucide-react';
 import type { Profile } from '../data/profiles';
 import { findProfileByName, useProfiles } from '../data/profiles';
 import './ProfileSearch.css';
@@ -53,10 +53,6 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
   return (
     <div className="search-container" id="invitation-search-section">
       <div className="search-header">
-        <span className="search-pretitle">
-          <Sparkles size={14} className="text-cyan-400" />
-          DIGITAL INVITATION PORTAL
-        </span>
         <h2 className="search-title">Find Your Invitation</h2>
         <p className="search-subtitle">
           Enter your name below to access your personalized pass &amp; schedule
@@ -65,7 +61,7 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
 
       <form className="search-form" onSubmit={handleSearch}>
         <div className="search-input-wrap">
-          <Search className="search-icon" size={20} />
+          <Search className="search-icon" size={18} />
           <input
             type="text"
             className="search-input"
@@ -101,14 +97,14 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
           id="find-my-invitation-btn"
         >
           <span>Find My Invitation</span>
-          <ArrowRight size={18} className="submit-arrow" />
+          <ArrowRight size={16} className="submit-arrow" />
         </button>
       </form>
 
       {/* Error state */}
       {error && (
         <div className="search-error-state" role="alert" id="search-error-message">
-          <AlertCircle size={22} className="error-icon" />
+          <AlertCircle size={20} className="error-icon" />
           <div className="error-text-wrap">
             <h4 className="error-title">We couldn't find your invitation.</h4>
             <p className="error-subtext">Please check the name and try again.</p>

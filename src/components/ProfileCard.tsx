@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Mail, Sparkles, User, CheckCircle2 } from 'lucide-react';
 import type { Profile } from '../data/profiles';
 import EventBadge from './EventBadge';
-import QRCodeCard from './QRCodeCard';
 import InvitationCard from './InvitationCard';
 import './ProfileCard.css';
 
@@ -86,16 +85,6 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
             <span>Open Invitation</span>
             <Sparkles size={16} className="btn-sparkle" />
           </button>
-        </div>
-
-        {/* Dynamic QR Code */}
-        <div className="profile-qr-section">
-          <QRCodeCard
-            profileId={profile.id}
-            name={profile.name}
-            event={profile.event || profile.eventType || 'freshers'}
-            size={155}
-          />
         </div>
       </div>
 

@@ -80,7 +80,6 @@ export const Home: React.FC = () => {
               <Award className="info-card-icon text-purple-400" size={28} />
               <h3>Honors &amp; Welcome</h3>
               <p className="highlight-text">Freshers &amp; Farewell</p>
-              <p className="sub-text">Keynote, Tributes, Cultural &amp; Dinner</p>
             </div>
           </div>
         </div>

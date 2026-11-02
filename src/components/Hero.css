@@ -156,57 +156,60 @@
   gap: 1.25rem;
 }
 
-/* Compact mobile scaling */
+/* Compact mobile scaling with open line heights */
 @media (max-width: 640px) {
   .hero-section {
-    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    padding: 1.25rem 0.85rem 0.85rem 0.85rem;
     min-height: auto;
   }
   .hero-institution {
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.5rem;
   }
   .institution-pill {
-    padding: 0.18rem 0.5rem;
-    border-color: rgba(255, 255, 255, 0.07);
-    background: rgba(8, 21, 37, 0.4);
-    gap: 0.3rem;
+    padding: 0.22rem 0.6rem;
+    border-color: rgba(255, 255, 255, 0.08);
+    background: rgba(8, 21, 37, 0.45);
+    gap: 0.35rem;
   }
   .institution-college {
-    font-size: 0.56rem;
-    letter-spacing: 0.03em;
-    line-height: 1.25;
+    font-size: 0.58rem;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
   }
   .hero-department-wrap {
-    padding: 0.15rem 0.45rem;
-    margin-bottom: 0.35rem;
-    border-color: rgba(66, 217, 255, 0.12);
-    gap: 0.3rem;
+    padding: 0.2rem 0.55rem;
+    margin-bottom: 0.5rem;
+    border-color: rgba(66, 217, 255, 0.14);
+    gap: 0.35rem;
+    line-height: 1.5;
   }
   .hero-small-label {
-    font-size: 0.6rem;
+    font-size: 0.62rem;
     letter-spacing: 0.08em;
+    line-height: 1.5;
   }
   .hero-badge-tag {
-    font-size: 0.52rem;
-    padding: 0.04rem 0.25rem;
+    font-size: 0.54rem;
+    padding: 0.05rem 0.3rem;
   }
   .hero-main-title {
-    font-size: 0.66rem;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.2rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.35rem;
+    line-height: 1.55;
   }
   .hero-large-heading {
-    font-size: clamp(1.2rem, 5.2vw, 1.45rem);
-    margin-bottom: 0.35rem;
-    line-height: 1.18;
+    font-size: clamp(1.22rem, 5.2vw, 1.48rem);
+    margin-bottom: 0.55rem;
+    line-height: 1.38;
   }
   .hero-subtitle {
-    font-size: 0.72rem;
-    margin-bottom: 0.75rem;
-    gap: 0.35rem;
-    line-height: 1.3;
+    font-size: 0.74rem;
+    margin-bottom: 1.15rem;
+    gap: 0.4rem;
+    line-height: 1.65;
   }
   .hero-interactive-area {
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
 }

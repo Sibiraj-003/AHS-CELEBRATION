@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { QrCode, Copy, Check, ExternalLink } from 'lucide-react';
+import { QrCode, ExternalLink } from 'lucide-react';
 import './QRCodeCard.css';
 
 interface QRCodeCardProps {
@@ -18,8 +18,6 @@ export const QRCodeCard: React.FC<QRCodeCardProps> = ({
   size = 170,
   className = ''
 }) => {
-  const [copied, setCopied] = useState(false);
-
   // Compute full URL for QR code, normalizing any Vercel preview hash to the canonical public domain
   const getCleanOrigin = () => {
     if (typeof window === 'undefined') return '';
@@ -30,16 +28,6 @@ export const QRCodeCard: React.FC<QRCodeCardProps> = ({
     return window.location.origin;
   };
   const profileUrl = `${getCleanOrigin()}/profile/${profileId}`;
-
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(profileUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2200);
-    } catch {
-      // Fallback
-    }
-  };
 
   return (
     <div className={`qr-card ${event === 'freshers' ? 'qr-card--freshers' : 'qr-card--farewell'} ${className}`}>
@@ -56,8 +44,8 @@ export const QRCodeCard: React.FC<QRCodeCardProps> = ({
             size={size}
             level="H"
             includeMargin={true}
-            bgColor="#050914"
-            fgColor={event === 'freshers' ? '#42D9FF' : '#c084fc'}
+            bgColor="#030a06"
+            fgColor={event === 'freshers' ? '#34D399' : '#E6C687'}
             imageSettings={{
               src: '/vite.svg',
               height: 24,
@@ -74,27 +62,7 @@ export const QRCodeCard: React.FC<QRCodeCardProps> = ({
             <span>Scan to Open Invitation</span>
           </p>
 
-
           <div className="qr-actions">
-            <button
-              type="button"
-              onClick={handleCopyLink}
-              className="qr-btn qr-btn--copy"
-              title="Copy personalized invitation link"
-            >
-              {copied ? (
-                <>
-                  <Check size={14} className="text-emerald-400" />
-                  <span>Link Copied</span>
-                </>
-              ) : (
-                <>
-                  <Copy size={14} />
-                  <span>Copy Link</span>
-                </>
-              )}
-            </button>
-
             <a
               href={`/profile/${profileId}`}
               className="qr-btn qr-btn--visit"

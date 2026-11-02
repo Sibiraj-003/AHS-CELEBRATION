@@ -44,8 +44,8 @@ export const QRCodeCard: React.FC<QRCodeCardProps> = ({
             size={size}
             level="H"
             includeMargin={true}
-            bgColor="#030a06"
-            fgColor={event === 'freshers' ? '#34D399' : '#E6C687'}
+            bgColor="#050914"
+            fgColor={event === 'freshers' ? '#42D9FF' : '#c084fc'}
             imageSettings={{
               src: '/vite.svg',
               height: 24,

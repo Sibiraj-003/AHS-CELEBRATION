@@ -29,11 +29,11 @@
 }
 
 .institution-college {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: clamp(0.72rem, 1.3vw, 0.88rem);
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: #E6C687;
+  color: #CBD5E1;
   text-transform: uppercase;
   background: none;
   border: none;
@@ -45,11 +45,11 @@
 
 /* 2. On the next line: AHS Celebration 2026 */
 .hero-main-title {
-  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
-  font-size: clamp(0.95rem, 1.8vw, 1.25rem);
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: #C59E50;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(0.82rem, 1.8vw, 1.05rem);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: #94A3B8;
   text-transform: uppercase;
   /* 4 lines of breathing space before Freshers & Farewell */
   margin: 0 0 clamp(3.2rem, 5.5vw, 4.5rem) 0;
@@ -57,32 +57,31 @@
 
 /* 3. Freshers Day & Farewell Day */
 .hero-large-heading {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Outfit', 'Inter', sans-serif;
   font-size: clamp(1.85rem, 5vw, 3.8rem);
-  font-weight: 800;
+  font-weight: 900;
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   margin: 0 0 0.8rem 0;
-  color: #FDFBF7;
+  color: #F8FAFC;
   word-break: break-word;
 }
 
 .heading-freshers {
-  background: linear-gradient(135deg, #FFFFFF 20%, #34D399 70%, #10B981 100%);
+  background: linear-gradient(135deg, #FFFFFF 40%, #42D9FF 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .heading-amp {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  color: #E6C687;
-  font-weight: 500;
-  margin: 0 0.35rem;
+  color: #7C5CFF;
+  font-weight: 400;
+  opacity: 0.85;
+  margin: 0 0.25rem;
 }
 
 .heading-farewell {
-  background: linear-gradient(135deg, #FFFFFF 20%, #F7E7C4 60%, #E6C687 100%);
+  background: linear-gradient(135deg, #FFFFFF 40%, #C084FC 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -91,26 +90,18 @@
 .hero-subtitle {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-size: clamp(0.82rem, 1.5vw, 1rem);
-  font-weight: 400;
-  color: #9BA7A0;
+  gap: 0.6rem;
+  font-size: clamp(0.82rem, 1.6vw, 1.05rem);
+  font-weight: 500;
+  color: #94A3B8;
   /* Distinct gap between above content and the Find Box */
   margin: 0 0 clamp(2.5rem, 5vw, 3.75rem) 0;
-  max-width: 600px;
+  max-width: 620px;
   line-height: 1.5;
 }
 
 .subtitle-icon {
   flex-shrink: 0;
-}
-
-.gold-sparkle {
-  color: #E6C687;
-}
-
-.emerald-award {
-  color: #34D399;
 }
 
 .hero-interactive-area {

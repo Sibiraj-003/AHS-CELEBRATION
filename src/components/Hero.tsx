@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Award } from 'lucide-react';
+import { Sparkles, Activity } from 'lucide-react';
 import { EVENT_DETAILS } from '../data/profiles';
 import './Hero.css';
 
@@ -28,9 +28,9 @@ export const Hero: React.FC<HeroProps> = ({ children }) => {
 
         {/* Subtitle / Tagline */}
         <p className="hero-subtitle">
-          <Sparkles size={16} className="subtitle-icon gold-sparkle" />
+          <Sparkles size={16} className="subtitle-icon text-cyan-400" />
           <span>{EVENT_DETAILS.tagline}</span>
-          <Award size={16} className="subtitle-icon emerald-award" />
+          <Activity size={16} className="subtitle-icon text-violet-400" />
         </p>
 
         {/* Embedded Children (Search Section & Results) */}

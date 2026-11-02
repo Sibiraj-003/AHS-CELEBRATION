@@ -3,13 +3,13 @@
   width: 100%;
   max-width: 420px;
   margin: 0 auto;
-  background: linear-gradient(160deg, rgba(8, 26, 17, 0.9) 0%, rgba(3, 12, 7, 0.98) 100%);
-  border: 1px solid rgba(16, 185, 129, 0.28);
+  background: linear-gradient(160deg, rgba(8, 21, 37, 0.85) 0%, rgba(5, 9, 20, 0.95) 100%);
+  border: 1px solid rgba(66, 217, 255, 0.28);
   border-radius: 24px;
   padding: 2rem 1.5rem;
   box-shadow: 
-    0 20px 50px -10px rgba(0, 0, 0, 0.8),
-    0 0 30px -5px rgba(16, 185, 129, 0.15);
+    0 20px 50px -10px rgba(0, 0, 0, 0.7),
+    0 0 30px -5px rgba(22, 119, 255, 0.2);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
@@ -24,24 +24,24 @@
 }
 
 .profile-card:hover {
-  border-color: rgba(16, 185, 129, 0.45);
+  border-color: rgba(66, 217, 255, 0.5);
   box-shadow: 
-    0 25px 60px -10px rgba(0, 0, 0, 0.85),
-    0 0 40px -5px rgba(16, 185, 129, 0.25);
+    0 25px 60px -10px rgba(0, 0, 0, 0.8),
+    0 0 40px -5px rgba(66, 217, 255, 0.3);
 }
 
 .profile-card--farewell {
-  border-color: rgba(230, 198, 135, 0.35);
+  border-color: rgba(124, 92, 255, 0.35);
   box-shadow: 
-    0 20px 50px -10px rgba(0, 0, 0, 0.8),
-    0 0 30px -5px rgba(230, 198, 135, 0.18);
+    0 20px 50px -10px rgba(0, 0, 0, 0.7),
+    0 0 30px -5px rgba(124, 92, 255, 0.2);
 }
 
 .profile-card--farewell:hover {
-  border-color: rgba(230, 198, 135, 0.55);
+  border-color: rgba(192, 132, 252, 0.5);
   box-shadow: 
-    0 25px 60px -10px rgba(0, 0, 0, 0.85),
-    0 0 40px -5px rgba(230, 198, 135, 0.3);
+    0 25px 60px -10px rgba(0, 0, 0, 0.8),
+    0 0 40px -5px rgba(124, 92, 255, 0.35);
 }
 
 /* Ambient glow orb behind card */
@@ -52,13 +52,13 @@
   transform: translateX(-50%);
   width: 240px;
   height: 240px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(22, 119, 255, 0.15) 0%, transparent 70%);
   pointer-events: none;
   filter: blur(30px);
 }
 
 .profile-card--farewell .profile-card__ambient {
-  background: radial-gradient(circle, rgba(230, 198, 135, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(124, 92, 255, 0.18) 0%, transparent 70%);
 }
 
 .profile-card__header {
@@ -76,9 +76,9 @@
   height: 175px;
   border-radius: 16px;
   padding: 3px;
-  background: linear-gradient(135deg, #34D399, #10B981, #E6C687);
+  background: linear-gradient(135deg, #42D9FF, #1677FF, #7C5CFF);
   box-shadow: 
-    0 0 20px rgba(16, 185, 129, 0.3),
+    0 0 20px rgba(66, 217, 255, 0.35),
     inset 0 0 10px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
@@ -89,9 +89,9 @@
 }
 
 .profile-card--farewell .profile-photo-ring {
-  background: linear-gradient(135deg, #F7E7C4, #E6C687, #C59E50);
+  background: linear-gradient(135deg, #C084FC, #7C5CFF, #F59E0B);
   box-shadow: 
-    0 0 20px rgba(230, 198, 135, 0.35),
+    0 0 20px rgba(192, 132, 252, 0.4),
     inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -105,7 +105,7 @@
   border-radius: 13px;
   object-fit: cover;
   object-position: center top;
-  background: #030a06;
+  background: #081525;
   display: block;
 }
 
@@ -113,23 +113,23 @@
   width: 100%;
   height: 100%;
   border-radius: 13px;
-  background: linear-gradient(145deg, #07150d, #030a06);
+  background: linear-gradient(145deg, #081525, #050914);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.2rem;
-  color: #34D399;
+  color: #42D9FF;
 }
 
 .profile-card--farewell .profile-photo-fallback {
-  color: #E6C687;
+  color: #C084FC;
 }
 
 .profile-photo-initials {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.05em;
 }
 
@@ -143,20 +143,20 @@
   right: -4px;
   width: 22px;
   height: 22px;
-  background: #030a06;
-  border: 2px solid #34D399;
+  background: #050914;
+  border: 2px solid #42D9FF;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #34D399;
-  box-shadow: 0 0 8px #34D399;
+  color: #42D9FF;
+  box-shadow: 0 0 8px #42D9FF;
 }
 
 .profile-card--farewell .profile-photo-status {
-  border-color: #E6C687;
-  color: #E6C687;
-  box-shadow: 0 0 8px #E6C687;
+  border-color: #C084FC;
+  color: #C084FC;
+  box-shadow: 0 0 8px #C084FC;
 }
 
 /* Info */
@@ -169,19 +169,18 @@
 }
 
 .profile-name {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #FDFBF7;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
   margin: 0;
 }
 
 .profile-role {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 0.8rem;
-  color: #E6C687;
-  letter-spacing: 0.06em;
+  color: #94A3B8;
   margin: 0;
 }
 
@@ -198,42 +197,42 @@
   justify-content: center;
   gap: 0.55rem;
   padding: 0.8rem 1.4rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: inherit;
   font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.03em;
-  color: #030a06;
-  background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
-  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #1677FF, #0052cc);
+  border: 1px solid rgba(66, 217, 255, 0.4);
   border-radius: 12px;
   cursor: pointer;
   box-shadow: 
-    0 8px 20px -4px rgba(16, 185, 129, 0.4),
-    0 0 12px rgba(16, 185, 129, 0.25);
+    0 8px 20px -4px rgba(22, 119, 255, 0.5),
+    0 0 12px rgba(66, 217, 255, 0.3);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-open-invitation:hover {
-  background: linear-gradient(135deg, #6ee7b7, #34D399);
+  background: linear-gradient(135deg, #1d84ff, #1677FF);
   transform: translateY(-1px);
   box-shadow: 
-    0 12px 25px -4px rgba(16, 185, 129, 0.55),
-    0 0 20px rgba(52, 211, 153, 0.4);
+    0 12px 25px -4px rgba(22, 119, 255, 0.6),
+    0 0 20px rgba(66, 217, 255, 0.45);
 }
 
 .profile-card--farewell .btn-open-invitation {
-  background: linear-gradient(135deg, #F7E7C4 0%, #E6C687 40%, #C59E50 100%);
-  border-color: rgba(247, 231, 196, 0.5);
+  background: linear-gradient(135deg, #7C5CFF, #5b35e8);
+  border-color: rgba(192, 132, 252, 0.4);
   box-shadow: 
-    0 8px 20px -4px rgba(197, 158, 80, 0.45),
-    0 0 12px rgba(230, 198, 135, 0.25);
+    0 8px 20px -4px rgba(124, 92, 255, 0.5),
+    0 0 12px rgba(124, 92, 255, 0.3);
 }
 
 .profile-card--farewell .btn-open-invitation:hover {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F7E7C4 50%, #E6C687 100%);
+  background: linear-gradient(135deg, #8a6cff, #7C5CFF);
   box-shadow: 
-    0 12px 25px -4px rgba(230, 198, 135, 0.6),
-    0 0 20px rgba(230, 198, 135, 0.4);
+    0 12px 25px -4px rgba(124, 92, 255, 0.6),
+    0 0 20px rgba(192, 132, 252, 0.45);
 }
 
 .btn-icon {
@@ -241,7 +240,7 @@
 }
 
 .btn-sparkle {
-  color: #030a06;
+  color: #FACC15;
   animation: pulseSparkle 2s infinite ease-in-out;
 }
 

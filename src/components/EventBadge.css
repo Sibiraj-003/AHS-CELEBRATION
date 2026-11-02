@@ -29,26 +29,26 @@
   z-index: 1;
 }
 
-/* Freshers styling: Emerald / Mint */
+/* Freshers styling: Cyan / Blue */
 .event-badge--freshers {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(52, 211, 153, 0.15));
-  border: 1px solid rgba(52, 211, 153, 0.4);
-  color: #34D399;
+  background: linear-gradient(135deg, rgba(22, 119, 255, 0.25), rgba(66, 217, 255, 0.2));
+  border: 1px solid rgba(66, 217, 255, 0.45);
+  color: #42D9FF;
 }
 
 .event-badge--freshers .event-badge__glow {
-  background: radial-gradient(circle at 50% 50%, rgba(52, 211, 153, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(66, 217, 255, 0.25) 0%, transparent 70%);
 }
 
-/* Farewell styling: Royal Champagne Gold */
+/* Farewell styling: Subtle Violet / Purple */
 .event-badge--farewell {
-  background: linear-gradient(135deg, rgba(230, 198, 135, 0.22), rgba(197, 158, 80, 0.15));
-  border: 1px solid rgba(230, 198, 135, 0.45);
-  color: #F7E7C4;
+  background: linear-gradient(135deg, rgba(124, 92, 255, 0.25), rgba(192, 132, 252, 0.15));
+  border: 1px solid rgba(192, 132, 252, 0.5);
+  color: #C084FC;
 }
 
 .event-badge--farewell .event-badge__glow {
-  background: radial-gradient(circle at 50% 50%, rgba(230, 198, 135, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(192, 132, 252, 0.25) 0%, transparent 70%);
 }
 
 /* Sizes */

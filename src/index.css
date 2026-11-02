@@ -1,16 +1,15 @@
 :root {
-  --color-bg: #030a06;
-  --color-navy: #07150d;
-  --color-emerald: #10B981;
-  --color-emerald-light: #34D399;
-  --color-gold: #E6C687;
-  --color-gold-light: #F7E7C4;
-  --color-gold-dark: #C59E50;
-  --color-white: #FDFBF7;
-  --color-muted: #9BA7A0;
-  --color-border: rgba(230, 198, 135, 0.22);
+  --color-bg: #050914;
+  --color-navy: #081525;
+  --color-blue: #1677FF;
+  --color-cyan: #42D9FF;
+  --color-violet: #7C5CFF;
+  --color-farewell: #C084FC;
+  --color-white: #F8FAFC;
+  --color-muted: #94A3B8;
+  --color-border: rgba(66, 217, 255, 0.2);
 
-  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   font-weight: 400;
   color-scheme: dark;
@@ -69,12 +68,11 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-  letter-spacing: -0.01em;
+  font-family: 'Outfit', 'Inter', sans-serif;
 }
 
 button, input {
-  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  font-family: inherit;
 }
 
 a {
@@ -82,26 +80,26 @@ a {
   text-decoration: none;
 }
 
-/* Custom Sleek Gold/Emerald Scrollbar */
+/* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #030a06;
+  background: #050914;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(230, 198, 135, 0.25);
+  background: rgba(66, 217, 255, 0.2);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(230, 198, 135, 0.45);
+  background: rgba(66, 217, 255, 0.4);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-cyan);
   outline-offset: 2px;
 }

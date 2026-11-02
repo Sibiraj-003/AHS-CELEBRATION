@@ -29,20 +29,20 @@
 }
 
 .theme-freshers .glass-ticket-card {
-  border-color: rgba(52, 211, 153, 0.35);
+  border-color: rgba(66, 217, 255, 0.35);
   box-shadow: 
     0 30px 80px rgba(0, 0, 0, 0.88),
-    0 0 45px rgba(16, 185, 129, 0.2),
-    inset 0 1px 0 rgba(52, 211, 153, 0.4);
+    0 0 45px rgba(66, 217, 255, 0.2),
+    inset 0 1px 0 rgba(66, 217, 255, 0.4);
 }
 
 .theme-farewell .glass-ticket-card {
-  background: linear-gradient(165deg, rgba(20, 24, 15, 0.94) 0%, rgba(8, 12, 6, 0.98) 100%);
-  border-color: rgba(230, 198, 135, 0.38);
+  background: linear-gradient(165deg, rgba(26, 14, 46, 0.92) 0%, rgba(10, 5, 22, 0.98) 100%);
+  border-color: rgba(192, 132, 252, 0.35);
   box-shadow: 
     0 30px 80px rgba(0, 0, 0, 0.88),
-    0 0 45px rgba(230, 198, 135, 0.22),
-    inset 0 1px 0 rgba(230, 198, 135, 0.4);
+    0 0 45px rgba(192, 132, 252, 0.2),
+    inset 0 1px 0 rgba(192, 132, 252, 0.4);
 }
 
 /* Ambient glow orbs */
@@ -63,11 +63,11 @@
 }
 
 .theme-freshers .ticket-glow-orb--top {
-  background: #10B981;
+  background: #1677FF;
 }
 
 .theme-farewell .ticket-glow-orb--top {
-  background: #C59E50;
+  background: #7C5CFF;
 }
 
 .ticket-glow-orb--bot {
@@ -78,11 +78,11 @@
 }
 
 .theme-freshers .ticket-glow-orb--bot {
-  background: #34D399;
+  background: #42D9FF;
 }
 
 .theme-farewell .ticket-glow-orb--bot {
-  background: #E6C687;
+  background: #C084FC;
 }
 
 /* Side notch punchouts */
@@ -134,23 +134,23 @@
 }
 
 .college-name {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: clamp(0.72rem, 1.4vw, 0.88rem);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #E6C687;
+  color: #CBD5E1;
   line-height: 1.5;
   margin: 0;
   text-align: center;
 }
 
 .dept-name {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: clamp(0.62rem, 1.2vw, 0.72rem);
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: #34D399;
+  color: #42D9FF;
   text-transform: uppercase;
   margin: 0;
   text-align: center;
@@ -190,15 +190,15 @@
 }
 
 .theme-freshers .ticket-event-badge {
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(52, 211, 153, 0.3);
-  color: #34D399;
+  background: rgba(22, 119, 255, 0.12);
+  border: 1px solid rgba(66, 217, 255, 0.25);
+  color: #42D9FF;
 }
 
 .theme-farewell .ticket-event-badge {
-  background: rgba(230, 198, 135, 0.12);
-  border: 1px solid rgba(230, 198, 135, 0.3);
-  color: #F7E7C4;
+  background: rgba(124, 92, 255, 0.12);
+  border: 1px solid rgba(192, 132, 252, 0.25);
+  color: #C084FC;
 }
 
 /* 2. Honored Attendee Section (Rectangle Portrait with Name Down) */
@@ -229,20 +229,20 @@
   border-radius: 18px;
   overflow: hidden;
   position: relative;
-  background: #030a06;
+  background: #081525;
   border: 2px solid rgba(255, 255, 255, 0.15);
   box-sizing: border-box;
 }
 
 .theme-freshers .attendee-avatar-ring {
-  border-color: #34D399;
-  box-shadow: 0 0 28px rgba(16, 185, 129, 0.4);
+  border-color: #42D9FF;
+  box-shadow: 0 0 28px rgba(66, 217, 255, 0.45);
   border-radius: 18px;
 }
 
 .theme-farewell .attendee-avatar-ring {
-  border-color: #E6C687;
-  box-shadow: 0 0 28px rgba(230, 198, 135, 0.4);
+  border-color: #C084FC;
+  box-shadow: 0 0 28px rgba(192, 132, 252, 0.45);
   border-radius: 18px;
 }
 
@@ -264,22 +264,22 @@
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  background: #07150d;
-  color: #9BA7A0;
+  background: #081525;
+  color: #94A3B8;
 }
 
 .avatar-initials {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 3.2rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .theme-freshers .avatar-initials {
-  color: #34D399;
+  color: #42D9FF;
 }
 
 .theme-farewell .avatar-initials {
-  color: #E6C687;
+  color: #C084FC;
 }
 
 /* Green Verified Check */
@@ -350,15 +350,15 @@
 }
 
 .theme-freshers .meta-pill-role {
-  background: rgba(16, 185, 129, 0.14);
-  color: #34D399;
-  border: 1px solid rgba(52, 211, 153, 0.3);
+  background: rgba(22, 119, 255, 0.14);
+  color: #42D9FF;
+  border: 1px solid rgba(66, 217, 255, 0.3);
 }
 
 .theme-farewell .meta-pill-role {
-  background: rgba(230, 198, 135, 0.14);
-  color: #F7E7C4;
-  border: 1px solid rgba(230, 198, 135, 0.35);
+  background: rgba(124, 92, 255, 0.16);
+  color: #C084FC;
+  border: 1px solid rgba(192, 132, 252, 0.35);
 }
 
 /* 3. Formal Invitation Note (Grand Card) */
@@ -385,15 +385,15 @@
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #9BA7A0;
+  color: #94A3B8;
 }
 
 .theme-freshers .msg-icon {
-  color: #34D399;
+  color: #42D9FF;
 }
 
 .theme-farewell .msg-icon {
-  color: #E6C687;
+  color: #C084FC;
 }
 
 .invitation-personal-greeting {
@@ -405,7 +405,7 @@
 }
 
 .greeting-lead {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Outfit', 'Inter', sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: #FFFFFF;
@@ -415,12 +415,12 @@
 .greeting-name {
   color: #FFFFFF;
   text-decoration: underline;
-  text-decoration-color: rgba(230, 198, 135, 0.6);
+  text-decoration-color: rgba(192, 132, 252, 0.6);
   text-underline-offset: 4px;
 }
 
 .theme-freshers .greeting-name {
-  text-decoration-color: rgba(52, 211, 153, 0.6);
+  text-decoration-color: rgba(66, 217, 255, 0.6);
 }
 
 .ticket-warm-note {
@@ -452,11 +452,11 @@
 }
 
 .theme-freshers .ecg-pulse-accent {
-  color: #34D399;
+  color: #42D9FF;
 }
 
 .theme-farewell .ecg-pulse-accent {
-  color: #E6C687;
+  color: #C084FC;
 }
 
 /* Perforation Divider */
@@ -506,11 +506,11 @@
 }
 
 .theme-freshers .logistics-icon {
-  color: #34D399;
+  color: #42D9FF;
 }
 
 .theme-farewell .logistics-icon {
-  color: #E6C687;
+  color: #C084FC;
 }
 
 .logistics-text {

@@ -2,7 +2,8 @@
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  padding: 2rem 2.5rem;
+  padding: clamp(1rem, 2.5vw, 2rem) clamp(0.75rem, 2vw, 2rem);
+  box-sizing: border-box;
   max-width: 1400px;
   margin: 0 auto;
 }

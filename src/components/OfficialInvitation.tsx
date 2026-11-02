@@ -1,7 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
-import { Download, Share2, User, Calendar, MapPin, Clock } from 'lucide-react';
-import type { Profile } from '../data/profiles';
+import { 
+  User, 
+  Calendar, 
+  MapPin, 
+  Clock, 
+  ShieldCheck, 
+  Sparkles, 
+  GraduationCap, 
+  HeartHandshake,
+  CheckCircle2,
+  Activity
+} from 'lucide-react';
+import { EVENT_DETAILS, type Profile } from '../data/profiles';
 import './OfficialInvitation.css';
 
 interface OfficialInvitationProps {
@@ -13,13 +24,8 @@ interface OfficialInvitationProps {
 export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
   profile,
   className = '',
-  showActions = true,
 }) => {
   const isFreshers = (profile.eventType || profile.event) === 'freshers';
-  const templateSrc = isFreshers
-    ? '/templates/freshers-template.jpg'
-    : '/templates/farewell-template.jpg';
-
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,9 +35,9 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
       : ['#7C5CFF', '#C084FC', '#F472B6', '#FFFFFF', '#A855F7'];
 
     confetti({
-      particleCount: 65,
-      spread: 70,
-      origin: { y: 0.6 },
+      particleCount: 55,
+      spread: 65,
+      origin: { y: 0.55 },
       colors,
       disableForReducedMotion: true,
     });
@@ -45,111 +51,150 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
     .join('')
     .toUpperCase();
 
-  const handleShare = async () => {
-    const url = window.location.href;
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `${profile.name} - Official AHS Celebration 2026 Invitation`,
-          text: `Personalized ${isFreshers ? 'Freshers Day' : 'Farewell Day'} 2026 invitation for ${profile.name}!`,
-          url,
-        });
-      } catch {
-        // User dismissed
-      }
-    } else {
-      await navigator.clipboard.writeText(url);
-      alert('Invitation link copied to clipboard!');
-    }
-  };
-
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
-    <div className={`official-invitation-container ${isFreshers ? 'theme-freshers' : 'theme-farewell'} ${className}`}>
-      {/* Action Toolbar */}
-      {showActions && (
-        <div className="invitation-action-toolbar no-print">
-          <button type="button" className="toolbar-btn btn-share" onClick={handleShare} title="Share invitation link">
-            <Share2 size={16} />
-            <span>Share Invitation</span>
-          </button>
-          <button type="button" className="toolbar-btn btn-print" onClick={handlePrint} title="Print or save as PDF">
-            <Download size={16} />
-            <span>Save / Print Invitation</span>
-          </button>
-        </div>
-      )}
+    <div className={`glass-ticket-container ${isFreshers ? 'theme-freshers' : 'theme-farewell'} ${className}`}>
+      {/* Main Large Glassmorphic Ticket Card */}
+      <div className="glass-ticket-card glass-ticket-card--grand" ref={cardRef}>
+        {/* Glow ambient accent shapes */}
+        <div className="ticket-glow-orb ticket-glow-orb--top" />
+        <div className="ticket-glow-orb ticket-glow-orb--bot" />
 
-      {/* Main Poster Card */}
-      <div className="invitation-poster-card" ref={cardRef}>
-        {/* Background Official Template Image */}
-        <img
-          src={templateSrc}
-          alt={`${isFreshers ? 'Freshers Day' : 'Farewell Day'} 2026 Official Invitation`}
-          className="invitation-template-img"
-        />
+        {/* Side ticket notch punchouts */}
+        <span className="ticket-notch ticket-notch--left" />
+        <span className="ticket-notch ticket-notch--right" />
 
-        {/* 1. Exact Center Circular Photo Frame (Inside Laurel Wreath) */}
-        <div className="invitation-photo-slot">
-          {profile.photo ? (
-            <img
-              src={profile.photo}
-              alt={`${profile.name} portrait`}
-              className="invitation-photo-img"
-              loading="eager"
-              onError={(e) => {
-                const target = e.currentTarget;
-                if (!target.dataset.fallbackTried) {
-                  target.dataset.fallbackTried = 'true';
-                  target.src = `/photos/${profile.id.toLowerCase().replace(/[^a-z0-9_-]/g, '')}.jpg`;
-                }
-              }}
-            />
-          ) : (
-            <div className="invitation-photo-empty">
-              <span className="photo-initials">{initials}</span>
-              <User size={22} className="photo-empty-icon" />
+        {/* 1. Header & Institution Brand */}
+        <header className="ticket-header">
+          <div className="institution-brand">
+            <ShieldCheck size={22} className="institution-icon" />
+            <div className="institution-titles">
+              <h4 className="college-name">{EVENT_DETAILS.college}</h4>
+              <p className="dept-name">{EVENT_DETAILS.department}</p>
             </div>
-          )}
+          </div>
+
+          <div className="ticket-header-badges">
+            <span className="ticket-kicker-badge">YOU'RE INVITED</span>
+            <div className="ticket-event-badge">
+              {isFreshers ? (
+                <Sparkles size={16} className="badge-icon" />
+              ) : (
+                <GraduationCap size={16} className="badge-icon" />
+              )}
+              <span>{isFreshers ? 'Freshers Day 2026' : 'Farewell Day 2026'}</span>
+            </div>
+          </div>
+        </header>
+
+        {/* 2. Honored Attendee Section (Large Square Avatar) */}
+        <section className="ticket-attendee-section ticket-attendee-section--grand">
+          {/* Avatar with purple/cyan ring */}
+          <div className="attendee-avatar-wrap">
+            <div className="attendee-avatar-ring">
+              {profile.photo ? (
+                <img
+                  src={profile.photo}
+                  alt={`${profile.name} portrait`}
+                  className="attendee-photo-img"
+                  loading="eager"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.dataset.fallbackTried) {
+                      target.dataset.fallbackTried = 'true';
+                      target.src = `/photos/${profile.id.toLowerCase().replace(/[^a-z0-9_-]/g, '')}.jpg`;
+                    }
+                  }}
+                />
+              ) : (
+                <div className="attendee-photo-fallback">
+                  <span className="avatar-initials">{initials}</span>
+                  <User size={36} className="avatar-empty-icon" />
+                </div>
+              )}
+            </div>
+            <span className="verified-check" title="Verified Attendee Pass">
+              <CheckCircle2 size={18} />
+            </span>
+          </div>
+
+          {/* Attendee Name & Badges */}
+          <div className="attendee-identity">
+            <span className="invitation-kicker">HONORED INVITATION FOR</span>
+            <h2 className="attendee-name">{profile.name}</h2>
+            {!isFreshers && (
+              <div className="attendee-meta-pills">
+                <span className="meta-pill-role">
+                  AHS Graduating Senior
+                </span>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* 3. Personalized Invitation Content Message */}
+        <section className="ticket-message-card ticket-message-card--grand">
+          <div className="msg-header-row">
+            <HeartHandshake size={20} className="msg-icon" />
+            <span className="msg-title">OFFICIAL INVITATION</span>
+          </div>
+          <div className="invitation-personal-greeting">
+            <p className="greeting-lead">
+              Dear <span className="greeting-name">{profile.name}</span>,
+            </p>
+            <p className="ticket-warm-note">
+              {isFreshers ? (
+                <>
+                  You are warmly invited to celebrate <strong>Freshers Day 2026</strong>.
+                </>
+              ) : (
+                <>
+                  You are warmly invited to celebrate <strong>Farewell Day 2026</strong>.
+                </>
+              )}
+            </p>
+          </div>
+
+          {/* Medical heartbeat heartbeat accent line */}
+          <div className="ecg-pulse-accent">
+            <span className="ecg-pulse-line" />
+            <Activity size={18} className="ecg-pulse-icon" />
+            <span className="ecg-pulse-line" />
+          </div>
+        </section>
+
+        {/* Perforated Divider */}
+        <div className="ticket-perforation">
+          <span className="perforation-line" />
         </div>
 
-        {/* 2. Ribbon Name Overlay */}
-        <div className="invitation-ribbon-name" title={profile.name}>
-          <span className="ribbon-text">{profile.name}</span>
-        </div>
+        {/* 4. Event Logistics */}
+        <footer className="ticket-stub-footer ticket-stub-footer--grand">
+          <div className="ticket-logistics-grid ticket-logistics-grid--grand">
+            <div className="logistics-item">
+              <Calendar size={18} className="logistics-icon" />
+              <div className="logistics-text">
+                <span className="logistics-label">DATE</span>
+                <span className="logistics-val">{EVENT_DETAILS.date || 'Nov 4, 2026'}</span>
+              </div>
+            </div>
 
-        {/* 3. Reg. No. Pill Badge Overlay */}
-        <div className="invitation-regno-pill">
-          <span>Reg. No : {profile.regNo || profile.id}</span>
-        </div>
+            <div className="logistics-item">
+              <Clock size={18} className="logistics-icon" />
+              <div className="logistics-text">
+                <span className="logistics-label">TIME</span>
+                <span className="logistics-val">{EVENT_DETAILS.time || '10:00 AM'}</span>
+              </div>
+            </div>
 
-        {/* 4. Personalized Salutation Block Overlay */}
-        <div className="invitation-greeting-block">
-          <p className="greeting-salutation">Dear {profile.name},</p>
-          <p className="greeting-sub">You are warmly invited to celebrate</p>
-          <p className="greeting-event-title">
-            {isFreshers ? 'Freshers Day 2026.' : 'Farewell Day 2026.'}
-          </p>
-        </div>
-      </div>
-
-      {/* Event Details Quick Bar */}
-      <div className="invitation-quick-meta no-print">
-        <div className="meta-pill">
-          <Calendar size={14} className="meta-icon" />
-          <span>Feb 20, 2026</span>
-        </div>
-        <div className="meta-pill">
-          <Clock size={14} className="meta-icon" />
-          <span>10:00 AM</span>
-        </div>
-        <div className="meta-pill">
-          <MapPin size={14} className="meta-icon" />
-          <span>AHS Auditorium</span>
-        </div>
+            <div className="logistics-item logistics-item--full">
+              <MapPin size={18} className="logistics-icon" />
+              <div className="logistics-text">
+                <span className="logistics-label">VENUE</span>
+                <span className="logistics-val">{EVENT_DETAILS.venue || 'Near Boys Hostel'}</span>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );

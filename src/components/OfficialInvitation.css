@@ -1,334 +1,530 @@
-.official-invitation-container {
+.glass-ticket-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
   width: 100%;
-  max-width: 520px;
+  max-width: 680px;
   margin: 0 auto;
 }
 
-/* Action Toolbar */
-.invitation-action-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.toolbar-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.25rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  border-radius: 9999px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  text-decoration: none;
-}
-
-.theme-freshers .btn-share {
-  background: rgba(22, 119, 255, 0.15);
-  border: 1px solid rgba(66, 217, 255, 0.4);
-  color: #42D9FF;
-}
-
-.theme-freshers .btn-share:hover {
-  background: rgba(22, 119, 255, 0.3);
-  box-shadow: 0 0 16px rgba(66, 217, 255, 0.4);
-}
-
-.theme-freshers .btn-print {
-  background: linear-gradient(135deg, #1677FF, #0052cc);
-  border: 1px solid rgba(66, 217, 255, 0.5);
-  color: #FFFFFF;
-  box-shadow: 0 4px 18px rgba(22, 119, 255, 0.35);
-}
-
-.theme-freshers .btn-print:hover {
-  background: linear-gradient(135deg, #2884ff, #1677FF);
-  box-shadow: 0 6px 24px rgba(66, 217, 255, 0.5);
-}
-
-.theme-farewell .btn-share {
-  background: rgba(124, 92, 255, 0.15);
-  border: 1px solid rgba(192, 132, 252, 0.4);
-  color: #C084FC;
-}
-
-.theme-farewell .btn-share:hover {
-  background: rgba(124, 92, 255, 0.3);
-  box-shadow: 0 0 16px rgba(192, 132, 252, 0.4);
-}
-
-.theme-farewell .btn-print {
-  background: linear-gradient(135deg, #7C5CFF, #5b36ea);
-  border: 1px solid rgba(192, 132, 252, 0.5);
-  color: #FFFFFF;
-  box-shadow: 0 4px 18px rgba(124, 92, 255, 0.35);
-}
-
-.theme-farewell .btn-print:hover {
-  background: linear-gradient(135deg, #9072ff, #7C5CFF);
-  box-shadow: 0 6px 24px rgba(192, 132, 252, 0.5);
-}
-
-/* Poster Card */
-.invitation-poster-card {
+/* Grand Glassmorphic Ticket Card */
+.glass-ticket-card {
   position: relative;
   width: 100%;
-  aspect-ratio: 682 / 1024;
-  border-radius: 20px;
+  border-radius: 28px;
   overflow: hidden;
-  background: #050914;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+  background: linear-gradient(165deg, rgba(14, 24, 46, 0.92) 0%, rgba(7, 12, 28, 0.98) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.88),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  padding: 2.25rem 2.25rem 2rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-sizing: border-box;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.theme-freshers .invitation-poster-card {
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(66, 217, 255, 0.25);
-  border: 1px solid rgba(66, 217, 255, 0.3);
+.theme-freshers .glass-ticket-card {
+  border-color: rgba(66, 217, 255, 0.35);
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.88),
+    0 0 45px rgba(66, 217, 255, 0.2),
+    inset 0 1px 0 rgba(66, 217, 255, 0.4);
 }
 
-.theme-farewell .invitation-poster-card {
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(192, 132, 252, 0.25);
-  border: 1px solid rgba(192, 132, 252, 0.3);
+.theme-farewell .glass-ticket-card {
+  background: linear-gradient(165deg, rgba(26, 14, 46, 0.92) 0%, rgba(10, 5, 22, 0.98) 100%);
+  border-color: rgba(192, 132, 252, 0.35);
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.88),
+    0 0 45px rgba(192, 132, 252, 0.2),
+    inset 0 1px 0 rgba(192, 132, 252, 0.4);
 }
 
-.invitation-template-img {
+/* Ambient glow orbs */
+.ticket-glow-orb {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* 1. Circular Photo Slot inside Laurel Wreath */
-.invitation-photo-slot {
-  position: absolute;
-  top: 27.2%;
-  left: 28.7%;
-  width: 42.6%;
-  height: 28.4%;
   border-radius: 50%;
-  overflow: hidden;
-  z-index: 5;
-  background: #020610;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.ticket-glow-orb--top {
+  top: -60px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+}
+
+.theme-freshers .ticket-glow-orb--top {
+  background: #1677FF;
+}
+
+.theme-farewell .ticket-glow-orb--top {
+  background: #7C5CFF;
+}
+
+.ticket-glow-orb--bot {
+  bottom: -50px;
+  left: -50px;
+  width: 220px;
+  height: 220px;
+}
+
+.theme-freshers .ticket-glow-orb--bot {
+  background: #42D9FF;
+}
+
+.theme-farewell .ticket-glow-orb--bot {
+  background: #C084FC;
+}
+
+/* Side notch punchouts */
+.ticket-notch {
+  position: absolute;
+  top: 73%;
+  width: 24px;
+  height: 24px;
+  background: #050914;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
+}
+
+.ticket-notch--left {
+  left: -12px;
+}
+
+.ticket-notch--right {
+  right: -12px;
+}
+
+/* 1. Header & Institution Brand */
+.ticket-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.institution-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.institution-icon {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.theme-freshers .institution-icon {
+  color: #42D9FF;
+}
+
+.theme-farewell .institution-icon {
+  color: #C084FC;
+}
+
+.institution-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.college-name {
+  font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #F8FAFC;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.dept-name {
+  font-size: clamp(0.72rem, 1.8vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #94A3B8;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.ticket-header-badges {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.theme-freshers .invitation-photo-slot {
-  border: 3px solid #42D9FF;
-  box-shadow: 0 0 24px rgba(66, 217, 255, 0.7), inset 0 0 15px rgba(66, 217, 255, 0.4);
+.ticket-kicker-badge {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #94A3B8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
 }
 
-.theme-farewell .invitation-photo-slot {
-  border: 3px solid #C084FC;
-  box-shadow: 0 0 24px rgba(192, 132, 252, 0.7), inset 0 0 15px rgba(192, 132, 252, 0.4);
+.ticket-event-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.15rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.invitation-photo-img {
+.theme-freshers .ticket-event-badge {
+  background: rgba(22, 119, 255, 0.18);
+  border: 1px solid rgba(66, 217, 255, 0.45);
+  color: #42D9FF;
+  box-shadow: 0 0 20px rgba(66, 217, 255, 0.25);
+}
+
+.theme-farewell .ticket-event-badge {
+  background: rgba(124, 92, 255, 0.18);
+  border: 1px solid rgba(192, 132, 252, 0.45);
+  color: #C084FC;
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.25);
+}
+
+/* 2. Honored Attendee Section (Large Square) */
+.ticket-attendee-section {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.attendee-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 160px;
+  height: 160px;
+}
+
+.attendee-avatar-ring {
+  width: 160px;
+  height: 160px;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: #081525;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-sizing: border-box;
+}
+
+.theme-freshers .attendee-avatar-ring {
+  border-color: #42D9FF;
+  box-shadow: 0 0 22px rgba(66, 217, 255, 0.4);
+  border-radius: 16px;
+}
+
+.theme-farewell .attendee-avatar-ring {
+  border-color: #C084FC;
+  box-shadow: 0 0 22px rgba(192, 132, 252, 0.4);
+  border-radius: 16px;
+}
+
+.attendee-photo-img {
   width: 100%;
   height: 100%;
+  border-radius: 16px;
   object-fit: cover;
+  object-position: center top;
   display: block;
 }
 
-.invitation-photo-empty {
+.attendee-photo-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 16, 0.98) 100%);
+  background: #081525;
   color: #94A3B8;
 }
 
-.photo-initials {
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
-  font-weight: 900;
-  letter-spacing: -0.02em;
-}
-
-.theme-freshers .photo-initials {
-  color: #42D9FF;
-  text-shadow: 0 0 15px rgba(66, 217, 255, 0.6);
-}
-
-.theme-farewell .photo-initials {
-  color: #C084FC;
-  text-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
-}
-
-.photo-empty-icon {
-  opacity: 0.6;
-}
-
-/* 2. Ribbon Name Overlay */
-.invitation-ribbon-name {
-  position: absolute;
-  top: 51.6%;
-  left: 17%;
-  width: 66%;
-  height: 6.2%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 8;
-  pointer-events: none;
-}
-
-.ribbon-text {
-  font-family: 'Great Vibes', 'Alex Brush', 'Dancing Script', cursive;
-  font-size: clamp(1.4rem, 4.4vw, 2.3rem);
-  font-weight: 700;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 0.5rem;
-}
-
-.theme-freshers .ribbon-text {
-  color: #081d3a;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.65), 0 0 8px rgba(66, 217, 255, 0.4);
-}
-
-.theme-farewell .ribbon-text {
-  color: #210740;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.65), 0 0 8px rgba(192, 132, 252, 0.4);
-}
-
-/* 3. Reg. No. Pill Badge Overlay */
-.invitation-regno-pill {
-  position: absolute;
-  top: 58.2%;
-  left: 27%;
-  width: 46%;
-  height: 3.9%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 8;
-  border-radius: 9999px;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.72rem, 1.9vw, 0.95rem);
+.avatar-initials {
+  font-size: 2.4rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+}
+
+.theme-freshers .avatar-initials {
+  color: #42D9FF;
+}
+
+.theme-farewell .avatar-initials {
+  color: #C084FC;
+}
+
+/* Green Verified Check */
+.verified-check {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #050914;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #10B981;
+  color: #10B981;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
+}
+
+.attendee-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.invitation-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #94A3B8;
+}
+
+.attendee-name {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  word-break: break-word;
+}
+
+.attendee-meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.meta-pill-role {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.theme-freshers .meta-pill-role {
+  background: rgba(22, 119, 255, 0.14);
+  color: #42D9FF;
+  border: 1px solid rgba(66, 217, 255, 0.3);
+}
+
+.theme-farewell .meta-pill-role {
+  background: rgba(124, 92, 255, 0.16);
+  color: #C084FC;
+  border: 1px solid rgba(192, 132, 252, 0.35);
+}
+
+/* 3. Formal Invitation Note (Grand Card) */
+.ticket-message-card {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.35rem 1.6rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.msg-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.msg-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #94A3B8;
+}
+
+.theme-freshers .msg-icon {
+  color: #42D9FF;
+}
+
+.theme-farewell .msg-icon {
+  color: #C084FC;
+}
+
+.invitation-personal-greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.greeting-lead {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.greeting-name {
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-decoration-color: rgba(192, 132, 252, 0.6);
+  text-underline-offset: 4px;
+}
+
+.theme-freshers .greeting-name {
+  text-decoration-color: rgba(66, 217, 255, 0.6);
+}
+
+.ticket-warm-note {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #CBD5E1;
+  margin: 0;
+}
+
+.ticket-warm-note strong {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+/* ECG Pulse Accent */
+.ecg-pulse-accent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+  opacity: 0.45;
+}
+
+.ecg-pulse-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+}
+
+.theme-freshers .ecg-pulse-accent {
+  color: #42D9FF;
+}
+
+.theme-farewell .ecg-pulse-accent {
+  color: #C084FC;
+}
+
+/* Perforation Divider */
+.ticket-perforation {
+  position: relative;
+  width: 100%;
+  margin: 0.25rem 0;
+}
+
+.perforation-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  border-top: 1.5px dashed rgba(255, 255, 255, 0.2);
+}
+
+/* 4. Event Logistics */
+.ticket-stub-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-logistics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+}
+
+.logistics-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logistics-item--full {
+  grid-column: auto;
+}
+
+.logistics-icon {
+  flex-shrink: 0;
+}
+
+.theme-freshers .logistics-icon {
+  color: #42D9FF;
+}
+
+.theme-farewell .logistics-icon {
+  color: #C084FC;
+}
+
+.logistics-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.logistics-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #94A3B8;
   text-transform: uppercase;
 }
 
-.theme-freshers .invitation-regno-pill {
-  background: #040e1e;
-  border: 1.5px solid #42D9FF;
-  color: #FFFFFF;
-  box-shadow: 0 0 14px rgba(66, 217, 255, 0.6), inset 0 0 8px rgba(66, 217, 255, 0.2);
-}
-
-.theme-farewell .invitation-regno-pill {
-  background: #110620;
-  border: 1.5px solid #C084FC;
-  color: #FFFFFF;
-  box-shadow: 0 0 14px rgba(192, 132, 252, 0.6), inset 0 0 8px rgba(192, 132, 252, 0.2);
-}
-
-/* 4. Personalized Salutation Block Overlay */
-.invitation-greeting-block {
-  position: absolute;
-  top: 65.4%;
-  left: 9%;
-  width: 82%;
-  height: 10.6%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: rgba(4, 9, 20, 0.92);
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.35rem 0.5rem;
-  z-index: 8;
-}
-
-.greeting-salutation {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: clamp(0.95rem, 2.4vw, 1.35rem);
-  font-weight: 700;
-  color: #F8FAFC;
-  margin: 0 0 0.15rem 0;
-  line-height: 1.2;
-}
-
-.greeting-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.72rem, 1.7vw, 0.9rem);
-  color: #CBD5E1;
-  margin: 0 0 0.15rem 0;
-  line-height: 1.2;
-}
-
-.greeting-event-title {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: clamp(0.92rem, 2.3vw, 1.3rem);
+.logistics-val {
+  font-size: 0.9rem;
   font-weight: 800;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.theme-freshers .greeting-event-title {
-  color: #42D9FF;
-  text-shadow: 0 0 12px rgba(66, 217, 255, 0.5);
-}
-
-.theme-farewell .greeting-event-title {
-  color: #C084FC;
-  text-shadow: 0 0 12px rgba(192, 132, 252, 0.5);
-}
-
-/* Quick Meta Bar */
-.invitation-quick-meta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.meta-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.85rem;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #94A3B8;
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.theme-freshers .meta-icon {
-  color: #42D9FF;
-}
-
-.theme-farewell .meta-icon {
-  color: #C084FC;
+  color: #F8FAFC;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Print styling */
@@ -339,11 +535,87 @@
   .no-print {
     display: none !important;
   }
-  .official-invitation-container {
+  .glass-ticket-container {
     max-width: 100% !important;
   }
-  .invitation-poster-card {
+  .glass-ticket-card {
     box-shadow: none !important;
-    border: none !important;
+    border: 1px solid #333 !important;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .glass-ticket-card {
+    padding: 1.5rem 1.25rem 1.35rem 1.25rem;
+    border-radius: 22px;
+    gap: 1.15rem;
+  }
+
+  .ticket-attendee-section {
+    gap: 1.15rem;
+  }
+
+  .attendee-avatar-wrap {
+    width: 125px;
+    height: 125px;
+  }
+
+  .attendee-avatar-ring {
+    width: 125px;
+    height: 125px;
+    border-radius: 14px;
+  }
+
+  .attendee-photo-img {
+    border-radius: 14px;
+  }
+
+  .attendee-name {
+    font-size: clamp(1.4rem, 5.5vw, 1.9rem);
+  }
+
+  .ticket-logistics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  .logistics-item--full {
+    grid-column: 1 / -1;
+  }
+
+  .logistics-val {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 440px) {
+  .ticket-attendee-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.85rem;
+  }
+
+  .attendee-avatar-wrap {
+    width: 120px;
+    height: 120px;
+  }
+
+  .attendee-avatar-ring {
+    width: 120px;
+    height: 120px;
+  }
+
+  .attendee-meta-pills {
+    justify-content: center;
+  }
+
+  .ticket-header-badges {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ticket-logistics-grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -71,11 +71,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
         {/* Person Identity */}
         <div className="profile-info">
           <h3 className="profile-name">{profile.name}</h3>
-          <div className="profile-reg-box">
-            <span className="profile-reg-label">ID / REG NO</span>
-            <span className="profile-reg-number">{profile.id}</span>
-          </div>
-          {profile.role && <p className="profile-role">{profile.role}</p>}
+          {!isFreshers && <p className="profile-role">AHS Graduating Senior</p>}
         </div>
 
         {/* Open Invitation CTA Button */}

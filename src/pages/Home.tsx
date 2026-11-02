@@ -141,7 +141,7 @@ export const Home: React.FC = () => {
 
                     <div className="dir-item__info">
                       <h4 className="dir-item__name">{profile.name}</h4>
-                      <span className="dir-item__id">{profile.id}</span>
+                      <span className="dir-item__id">{!isFreshers ? 'AHS Graduating Senior' : ''}</span>
                     </div>
 
                     <span className={`dir-item__badge ${isFreshers ? 'badge-cyan' : 'badge-purple'}`}>

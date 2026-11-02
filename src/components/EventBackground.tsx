@@ -1,19 +1,26 @@
 import React from 'react';
-import Aurora from './Aurora';
+import Particles from './Particles';
 import './EventBackground.css';
 
 export const EventBackground: React.FC = () => {
   return (
     <div className="event-bg-wrapper" aria-hidden="true">
-      <div className="event-bg-base" />
-      <div className="event-bg-aurora">
-        <Aurora
-          amplitude={1.1}
-          speed={0.5}
-          opacity={0.8}
-          mouseInteraction={true}
-        />
-      </div>
+      <Particles
+        particleColors={["#0c40ff", "#fffdfe", "#d71717"]}
+        particleCount={1370}
+        particleSpread={10}
+        speed={0.16}
+        particleBaseSize={80}
+        glow={0.5}
+        twinkle={0.35}
+        moveParticlesOnHover={true}
+        hoverEffect="parallax"
+        sizeRandomness={0.7}
+        shape="sparkle"
+        particleHoverFactor={1.15}
+        disableRotation={true}
+        className="event-bg-particles"
+      />
     </div>
   );
 };

@@ -20,8 +20,9 @@ export const EVENT_DETAILS = {
   mainEvent: "FRESHERS DAY & FAREWELL DAY",
   tagline: "Celebrating New Beginnings • Cherishing Memories",
   year: "2026",
-  venue: "Main Auditorium, Krishna Health Campus",
-  time: "09:30 AM onwards",
+  date: "Nov 4, 2026",
+  venue: "Near Boys Hostel",
+  time: "10:00 AM",
 };
 
 export const STORAGE_KEY = 'ahs_profiles_data_2026_clean';

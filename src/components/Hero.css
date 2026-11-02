@@ -1,17 +1,18 @@
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 90vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1.5rem 3rem 1.5rem;
+  padding: clamp(3rem, 7vw, 5.5rem) clamp(1rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3rem) clamp(1rem, 3vw, 2.5rem);
   z-index: 5;
+  box-sizing: border-box;
 }
 
 .hero-container {
-  max-width: 1100px;
+  max-width: 1440px;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -22,26 +23,27 @@
 
 /* College banner pill */
 .hero-institution {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .institution-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(8, 21, 37, 0.7);
-  border: 1px solid rgba(66, 217, 255, 0.2);
+  background: rgba(8, 21, 37, 0.75);
+  border: 1px solid rgba(66, 217, 255, 0.25);
   border-radius: 9999px;
-  padding: 0.45rem 1.25rem;
+  padding: 0.45rem clamp(0.85rem, 2vw, 1.35rem);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  max-width: 100%;
 }
 
 .institution-college {
-  font-size: 0.75rem;
+  font-size: clamp(0.68rem, 1.8vw, 0.78rem);
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #94A3B8;
+  letter-spacing: 0.1em;
+  color: #CBD5E1;
   text-transform: uppercase;
 }
 
@@ -73,9 +75,9 @@
 }
 
 .hero-small-label {
-  font-size: 0.82rem;
+  font-size: clamp(0.72rem, 1.8vw, 0.82rem);
   font-weight: 800;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   color: #42D9FF;
   text-transform: uppercase;
 }
@@ -92,23 +94,24 @@
 
 /* Main title */
 .hero-main-title {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
   font-weight: 800;
   letter-spacing: 0.25em;
   color: #CBD5E1;
   text-transform: uppercase;
-  margin: 0 0 0.85rem 0;
+  margin: 0 0 0.75rem 0;
   text-shadow: 0 0 20px rgba(66, 217, 255, 0.3);
 }
 
 /* Large Heading */
 .hero-large-heading {
-  font-size: clamp(2.5rem, 6vw, 4.8rem);
+  font-size: clamp(2rem, 6.5vw, 4.8rem);
   font-weight: 900;
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin: 0 0 1.25rem 0;
   color: #F8FAFC;
+  word-break: break-word;
 }
 
 .heading-freshers {
@@ -137,11 +140,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
   font-weight: 500;
   color: #94A3B8;
-  margin: 0 0 2.5rem 0;
+  margin: 0 0 2.25rem 0;
   max-width: 680px;
+  line-height: 1.4;
 }
 
 .subtitle-icon {
@@ -158,11 +162,12 @@
 
 @media (max-width: 640px) {
   .hero-section {
-    padding: 3rem 1rem 2rem 1rem;
+    padding: 2.5rem 1rem 1.75rem 1rem;
+    min-height: auto;
   }
   .institution-college {
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
   }
   .hero-subtitle {
     flex-direction: column;

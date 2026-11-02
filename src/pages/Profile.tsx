@@ -119,7 +119,7 @@ export const Profile: React.FC = () => {
               </span>
               <h1 className="profile-view-title">{activeProfile.name}</h1>
               <p className="profile-view-sub">
-                Reg. No: <strong>{activeProfile.regNo || activeProfile.id}</strong> • Official Personalized Digital Pass
+                Official Personalized Digital Pass
               </p>
             </div>
 

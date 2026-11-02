@@ -73,7 +73,7 @@ export const QRCodeCard: React.FC<QRCodeCardProps> = ({
             <QrCode size={16} className="qr-instruction__icon" />
             <span>Scan to Open Invitation</span>
           </p>
-          <p className="qr-target-id">REF: {profileId}</p>
+
 
           <div className="qr-actions">
             <button

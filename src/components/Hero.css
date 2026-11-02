@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1rem, 3vw, 2.5rem) clamp(2rem, 3vw, 3rem) clamp(1rem, 3vw, 2.5rem);
   z-index: 5;
   box-sizing: border-box;
 }
@@ -21,37 +21,26 @@
   text-align: center;
 }
 
-/* 1. College name at the top */
+/* 1. College name at the top (pure typography: no emoji, no border) */
 .hero-institution {
-  margin-bottom: 0.65rem;
-}
-
-.institution-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  background: rgba(7, 21, 13, 0.75);
-  border: 1px solid rgba(230, 198, 135, 0.28);
-  border-radius: 9999px;
-  padding: 0.32rem clamp(0.75rem, 1.4vw, 1.15rem);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  max-width: 100%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
-
-.institution-icon {
-  color: #E6C687;
-  flex-shrink: 0;
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.85rem);
+  display: flex;
+  justify-content: center;
 }
 
 .institution-college {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(0.62rem, 1.2vw, 0.72rem);
+  font-size: clamp(0.72rem, 1.3vw, 0.88rem);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #F7E7C4;
+  letter-spacing: 0.14em;
+  color: #E6C687;
   text-transform: uppercase;
+  background: none;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  opacity: 0.95;
+  line-height: 1.5;
 }
 
 /* 2. On the next line: AHS Celebration 2026 */
@@ -98,7 +87,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Subtitle */
+/* Subtitle / Tagline */
 .hero-subtitle {
   display: inline-flex;
   align-items: center;
@@ -106,7 +95,8 @@
   font-size: clamp(0.82rem, 1.5vw, 1rem);
   font-weight: 400;
   color: #9BA7A0;
-  margin: 0 0 1.5rem 0;
+  /* Distinct gap between above content and the Find Box */
+  margin: 0 0 clamp(2.5rem, 5vw, 3.75rem) 0;
   max-width: 600px;
   line-height: 1.5;
 }
@@ -128,33 +118,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
-/* Compact mobile scaling */
+/* Compact mobile scaling with proper spacing */
 @media (max-width: 640px) {
   .hero-section {
-    padding: 1.75rem 0.85rem 0.85rem 0.85rem;
+    padding: 2rem 0.85rem 1rem 0.85rem;
     min-height: auto;
   }
   .hero-institution {
-    margin-bottom: 0.45rem;
-  }
-  .institution-pill {
-    padding: 0.22rem 0.6rem;
-    border-color: rgba(230, 198, 135, 0.22);
-    background: rgba(7, 21, 13, 0.6);
-    gap: 0.35rem;
+    margin-bottom: 1.15rem;
   }
   .institution-college {
-    font-size: 0.58rem;
-    letter-spacing: 0.04em;
-    line-height: 1.6;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    line-height: 1.55;
   }
   .hero-main-title {
     font-size: 0.78rem;
     letter-spacing: 0.16em;
-    /* 4 lines of space on mobile (~2.75rem) */
+    /* 4 lines of space on mobile */
     margin: 0 0 2.75rem 0;
     line-height: 1.55;
   }
@@ -165,11 +149,12 @@
   }
   .hero-subtitle {
     font-size: 0.74rem;
-    margin-bottom: 1.15rem;
+    /* Generous gap before find box on mobile */
+    margin-bottom: 2.25rem;
     gap: 0.4rem;
     line-height: 1.65;
   }
   .hero-interactive-area {
-    gap: 0.85rem;
+    gap: 1rem;
   }
 }

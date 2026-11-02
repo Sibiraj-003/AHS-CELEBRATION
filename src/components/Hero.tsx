@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Sparkles, Award } from 'lucide-react';
+import { Sparkles, Award } from 'lucide-react';
 import { EVENT_DETAILS } from '../data/profiles';
 import './Hero.css';
 
@@ -11,12 +11,9 @@ export const Hero: React.FC<HeroProps> = ({ children }) => {
   return (
     <section className="hero-section">
       <div className="hero-container">
-        {/* Top College Header Badge */}
+        {/* Top College Header (clean text, no emoji, no border) */}
         <div className="hero-institution">
-          <div className="institution-pill">
-            <ShieldCheck size={14} className="institution-icon" />
-            <span className="institution-college">{EVENT_DETAILS.college}</span>
-          </div>
+          <span className="institution-college">{EVENT_DETAILS.college}</span>
         </div>
 
         {/* Main Title */}

@@ -46,6 +46,32 @@ export const Home: React.FC = () => {
         )}
       </Hero>
 
+      {/* Official Common Invitation Section */}
+      <section className="common-invitation-section" id="common-invitation">
+        <div className="common-invitation-container">
+          <div className="common-invitation-badge-wrap">
+            <span className="common-invitation-badge">
+              <Sparkles size={14} className="badge-sparkle" />
+              OFFICIAL INVITATION
+            </span>
+          </div>
+
+          <h2 className="common-invitation-title">Department Invitation</h2>
+          <p className="common-invitation-subtitle">
+            Farewell &amp; Freshers Day 2026 • Department of AHS
+          </p>
+
+          <div className="common-invitation-card">
+            <img
+              src="/images/common-invitation.jpg"
+              alt="Department of AHS Farewell & Freshers Day Official Invitation"
+              className="common-invitation-img"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Event Details Highlights */}
       <section className="event-info-section">
         <div className="event-info-container">

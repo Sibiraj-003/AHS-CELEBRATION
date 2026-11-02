@@ -138,6 +138,96 @@
   white-space: nowrap;
 }
 
+/* Official Common Invitation Section */
+.common-invitation-section {
+  width: 100%;
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1rem, 3vw, 2.5rem);
+  border-top: 1px solid rgba(230, 198, 135, 0.12);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.common-invitation-container {
+  max-width: 540px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.common-invitation-badge-wrap {
+  margin-bottom: 0.65rem;
+}
+
+.common-invitation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #E6C687;
+  background: rgba(230, 198, 135, 0.08);
+  border: 1px solid rgba(230, 198, 135, 0.25);
+  padding: 0.22rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.badge-sparkle {
+  color: #E6C687;
+}
+
+.common-invitation-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #FDFBF7;
+  margin: 0 0 0.45rem 0;
+}
+
+.common-invitation-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.78rem, 1.6vw, 0.92rem);
+  color: #9BA7A0;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem) 0;
+  line-height: 1.5;
+}
+
+.common-invitation-card {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(7, 21, 13, 0.85);
+  border: 1px solid rgba(230, 198, 135, 0.28);
+  box-shadow: 
+    0 25px 60px -10px rgba(0, 0, 0, 0.85),
+    0 0 35px -5px rgba(230, 198, 135, 0.18);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.common-invitation-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(230, 198, 135, 0.5);
+  box-shadow: 
+    0 30px 75px -10px rgba(0, 0, 0, 0.9),
+    0 0 45px rgba(230, 198, 135, 0.28);
+}
+
+.common-invitation-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
 /* Event Info Section - Full Width */
 .event-info-section {
   width: 100%;
@@ -271,6 +361,19 @@
     font-size: 0.62rem;
     padding: 0.15rem 0.5rem;
     line-height: 1.5;
+  }
+  .common-invitation-section {
+    padding: 1.75rem 0.85rem;
+  }
+  .common-invitation-card {
+    border-radius: 16px;
+  }
+  .common-invitation-title {
+    font-size: 1.25rem;
+  }
+  .common-invitation-subtitle {
+    font-size: 0.74rem;
+    margin-bottom: 1.25rem;
   }
   .event-info-section {
     padding: 1.15rem 0.85rem;

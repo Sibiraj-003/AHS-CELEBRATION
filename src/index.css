@@ -1,15 +1,17 @@
 :root {
-  --color-bg: #050914;
-  --color-navy: #081525;
-  --color-blue: #1677FF;
-  --color-cyan: #42D9FF;
-  --color-violet: #7C5CFF;
-  --color-white: #F8FAFC;
-  --color-muted: #94A3B8;
-  --color-border: rgba(66, 217, 255, 0.2);
+  --color-bg: #030a06;
+  --color-navy: #07150d;
+  --color-emerald: #10B981;
+  --color-emerald-light: #34D399;
+  --color-gold: #E6C687;
+  --color-gold-light: #F7E7C4;
+  --color-gold-dark: #C59E50;
+  --color-white: #FDFBF7;
+  --color-muted: #9BA7A0;
+  --color-border: rgba(230, 198, 135, 0.22);
 
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.5;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
   font-weight: 400;
   color-scheme: dark;
   color: var(--color-white);
@@ -46,11 +48,12 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', 'Inter', sans-serif;
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  letter-spacing: -0.01em;
 }
 
 button, input {
-  font-family: inherit;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
 }
 
 a {
@@ -58,27 +61,26 @@ a {
   text-decoration: none;
 }
 
-/* Custom Sleek Scrollbar */
+/* Custom Sleek Gold/Emerald Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050914;
+  background: #030a06;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(66, 217, 255, 0.2);
+  background: rgba(230, 198, 135, 0.25);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(66, 217, 255, 0.4);
+  background: rgba(230, 198, 135, 0.45);
 }
 
-/* Focus outline for accessibility */
 :focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--color-gold);
   outline-offset: 2px;
 }

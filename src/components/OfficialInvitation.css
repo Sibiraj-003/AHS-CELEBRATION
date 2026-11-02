@@ -29,20 +29,20 @@
 }
 
 .theme-freshers .glass-ticket-card {
-  border-color: rgba(66, 217, 255, 0.35);
+  border-color: rgba(52, 211, 153, 0.35);
   box-shadow: 
     0 30px 80px rgba(0, 0, 0, 0.88),
-    0 0 45px rgba(66, 217, 255, 0.2),
-    inset 0 1px 0 rgba(66, 217, 255, 0.4);
+    0 0 45px rgba(16, 185, 129, 0.2),
+    inset 0 1px 0 rgba(52, 211, 153, 0.4);
 }
 
 .theme-farewell .glass-ticket-card {
-  background: linear-gradient(165deg, rgba(26, 14, 46, 0.92) 0%, rgba(10, 5, 22, 0.98) 100%);
-  border-color: rgba(192, 132, 252, 0.35);
+  background: linear-gradient(165deg, rgba(20, 24, 15, 0.94) 0%, rgba(8, 12, 6, 0.98) 100%);
+  border-color: rgba(230, 198, 135, 0.38);
   box-shadow: 
     0 30px 80px rgba(0, 0, 0, 0.88),
-    0 0 45px rgba(192, 132, 252, 0.2),
-    inset 0 1px 0 rgba(192, 132, 252, 0.4);
+    0 0 45px rgba(230, 198, 135, 0.22),
+    inset 0 1px 0 rgba(230, 198, 135, 0.4);
 }
 
 /* Ambient glow orbs */
@@ -63,11 +63,11 @@
 }
 
 .theme-freshers .ticket-glow-orb--top {
-  background: #1677FF;
+  background: #10B981;
 }
 
 .theme-farewell .ticket-glow-orb--top {
-  background: #7C5CFF;
+  background: #C59E50;
 }
 
 .ticket-glow-orb--bot {
@@ -78,11 +78,11 @@
 }
 
 .theme-freshers .ticket-glow-orb--bot {
-  background: #42D9FF;
+  background: #34D399;
 }
 
 .theme-farewell .ticket-glow-orb--bot {
-  background: #C084FC;
+  background: #E6C687;
 }
 
 /* Side notch punchouts */
@@ -193,15 +193,15 @@
 }
 
 .theme-freshers .ticket-event-badge {
-  background: rgba(22, 119, 255, 0.12);
-  border: 1px solid rgba(66, 217, 255, 0.25);
-  color: #42D9FF;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #34D399;
 }
 
 .theme-farewell .ticket-event-badge {
-  background: rgba(124, 92, 255, 0.12);
-  border: 1px solid rgba(192, 132, 252, 0.25);
-  color: #C084FC;
+  background: rgba(230, 198, 135, 0.12);
+  border: 1px solid rgba(230, 198, 135, 0.3);
+  color: #F7E7C4;
 }
 
 /* 2. Honored Attendee Section (Rectangle Portrait with Name Down) */
@@ -232,20 +232,20 @@
   border-radius: 18px;
   overflow: hidden;
   position: relative;
-  background: #081525;
+  background: #030a06;
   border: 2px solid rgba(255, 255, 255, 0.15);
   box-sizing: border-box;
 }
 
 .theme-freshers .attendee-avatar-ring {
-  border-color: #42D9FF;
-  box-shadow: 0 0 28px rgba(66, 217, 255, 0.45);
+  border-color: #34D399;
+  box-shadow: 0 0 28px rgba(16, 185, 129, 0.4);
   border-radius: 18px;
 }
 
 .theme-farewell .attendee-avatar-ring {
-  border-color: #C084FC;
-  box-shadow: 0 0 28px rgba(192, 132, 252, 0.45);
+  border-color: #E6C687;
+  box-shadow: 0 0 28px rgba(230, 198, 135, 0.4);
   border-radius: 18px;
 }
 
@@ -267,21 +267,22 @@
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  background: #081525;
-  color: #94A3B8;
+  background: #07150d;
+  color: #9BA7A0;
 }
 
 .avatar-initials {
+  font-family: 'Playfair Display', serif;
   font-size: 3.2rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .theme-freshers .avatar-initials {
-  color: #42D9FF;
+  color: #34D399;
 }
 
 .theme-farewell .avatar-initials {
-  color: #C084FC;
+  color: #E6C687;
 }
 
 /* Green Verified Check */
@@ -352,15 +353,15 @@
 }
 
 .theme-freshers .meta-pill-role {
-  background: rgba(22, 119, 255, 0.14);
-  color: #42D9FF;
-  border: 1px solid rgba(66, 217, 255, 0.3);
+  background: rgba(16, 185, 129, 0.14);
+  color: #34D399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
 .theme-farewell .meta-pill-role {
-  background: rgba(124, 92, 255, 0.16);
-  color: #C084FC;
-  border: 1px solid rgba(192, 132, 252, 0.35);
+  background: rgba(230, 198, 135, 0.14);
+  color: #F7E7C4;
+  border: 1px solid rgba(230, 198, 135, 0.35);
 }
 
 /* 3. Formal Invitation Note (Grand Card) */
@@ -387,15 +388,15 @@
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #94A3B8;
+  color: #9BA7A0;
 }
 
 .theme-freshers .msg-icon {
-  color: #42D9FF;
+  color: #34D399;
 }
 
 .theme-farewell .msg-icon {
-  color: #C084FC;
+  color: #E6C687;
 }
 
 .invitation-personal-greeting {
@@ -407,6 +408,7 @@
 }
 
 .greeting-lead {
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: #FFFFFF;
@@ -416,12 +418,12 @@
 .greeting-name {
   color: #FFFFFF;
   text-decoration: underline;
-  text-decoration-color: rgba(192, 132, 252, 0.6);
+  text-decoration-color: rgba(230, 198, 135, 0.6);
   text-underline-offset: 4px;
 }
 
 .theme-freshers .greeting-name {
-  text-decoration-color: rgba(66, 217, 255, 0.6);
+  text-decoration-color: rgba(52, 211, 153, 0.6);
 }
 
 .ticket-warm-note {
@@ -453,11 +455,11 @@
 }
 
 .theme-freshers .ecg-pulse-accent {
-  color: #42D9FF;
+  color: #34D399;
 }
 
 .theme-farewell .ecg-pulse-accent {
-  color: #C084FC;
+  color: #E6C687;
 }
 
 /* Perforation Divider */
@@ -507,11 +509,11 @@
 }
 
 .theme-freshers .logistics-icon {
-  color: #42D9FF;
+  color: #34D399;
 }
 
 .theme-farewell .logistics-icon {
-  color: #C084FC;
+  color: #E6C687;
 }
 
 .logistics-text {

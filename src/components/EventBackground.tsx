@@ -6,12 +6,12 @@ export const EventBackground: React.FC = () => {
   return (
     <div className="event-bg-wrapper" aria-hidden="true">
       <Particles
-        particleColors={["#0c40ff", "#fffdfe", "#d71717"]}
+        particleColors={["#E6C687", "#34D399", "#F7E7C4", "#10B981", "#C59E50", "#FFFFFF"]}
         particleCount={1370}
         particleSpread={10}
-        speed={0.16}
-        particleBaseSize={80}
-        glow={0.5}
+        speed={0.15}
+        particleBaseSize={85}
+        glow={0.55}
         twinkle={0.35}
         moveParticlesOnHover={true}
         hoverEffect="parallax"

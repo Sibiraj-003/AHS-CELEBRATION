@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.25rem) clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(2.2rem, 4.5vw, 4rem) clamp(1rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem);
   z-index: 5;
   box-sizing: border-box;
 }
@@ -21,29 +21,36 @@
   text-align: center;
 }
 
-/* College banner pill - Sleek & refined */
+/* College banner pill - Royal Emerald & Gold */
 .hero-institution {
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.75rem;
 }
 
 .institution-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background: rgba(8, 21, 37, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 0.45rem;
+  background: rgba(7, 21, 13, 0.75);
+  border: 1px solid rgba(230, 198, 135, 0.28);
   border-radius: 9999px;
-  padding: 0.28rem clamp(0.65rem, 1.2vw, 1rem);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  padding: 0.32rem clamp(0.75rem, 1.4vw, 1.15rem);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   max-width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.institution-icon {
+  color: #E6C687;
+  flex-shrink: 0;
 }
 
 .institution-college {
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(0.62rem, 1.2vw, 0.72rem);
   font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #CBD5E1;
+  letter-spacing: 0.08em;
+  color: #F7E7C4;
   text-transform: uppercase;
 }
 
@@ -51,20 +58,20 @@
 .hero-department-wrap {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background: rgba(22, 119, 255, 0.06);
-  border: 1px solid rgba(66, 217, 255, 0.15);
+  gap: 0.45rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.22);
   border-radius: 9999px;
-  padding: 0.2rem 0.65rem;
-  margin-bottom: 0.65rem;
+  padding: 0.22rem 0.7rem;
+  margin-bottom: 0.75rem;
 }
 
 .hero-pulse-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #42D9FF;
-  box-shadow: 0 0 6px #42D9FF;
+  background: #34D399;
+  box-shadow: 0 0 6px #34D399;
   animation: pulseDot 2s infinite;
 }
 
@@ -74,59 +81,63 @@
 }
 
 .hero-small-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(0.64rem, 1.2vw, 0.72rem);
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #42D9FF;
+  color: #34D399;
   text-transform: uppercase;
 }
 
 .hero-badge-tag {
   font-size: 0.58rem;
   font-weight: 700;
-  color: #94A3B8;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.06rem 0.3rem;
+  color: #E6C687;
+  background: rgba(230, 198, 135, 0.12);
+  padding: 0.06rem 0.35rem;
   border-radius: 4px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 /* Main title */
 .hero-main-title {
-  font-size: clamp(0.75rem, 1.5vw, 0.95rem);
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  color: #94A3B8;
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #C59E50;
   text-transform: uppercase;
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.45rem 0;
 }
 
-/* Crisp Heading */
+/* Royal Editorial Heading */
 .hero-large-heading {
-  font-size: clamp(1.6rem, 4.5vw, 3.2rem);
-  font-weight: 900;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.85rem, 5vw, 3.8rem);
+  font-weight: 800;
   line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.65rem 0;
-  color: #F8FAFC;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.8rem 0;
+  color: #FDFBF7;
   word-break: break-word;
 }
 
 .heading-freshers {
-  background: linear-gradient(135deg, #FFFFFF 40%, #42D9FF 100%);
+  background: linear-gradient(135deg, #FFFFFF 20%, #34D399 70%, #10B981 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .heading-amp {
-  color: #7C5CFF;
-  font-weight: 400;
-  opacity: 0.85;
-  margin: 0 0.25rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: #E6C687;
+  font-weight: 500;
+  margin: 0 0.35rem;
 }
 
 .heading-farewell {
-  background: linear-gradient(135deg, #FFFFFF 40%, #C084FC 100%);
+  background: linear-gradient(135deg, #FFFFFF 20%, #F7E7C4 60%, #E6C687 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -135,17 +146,25 @@
 .hero-subtitle {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: clamp(0.78rem, 1.4vw, 0.95rem);
-  font-weight: 500;
-  color: #94A3B8;
-  margin: 0 0 1.25rem 0;
-  max-width: 580px;
-  line-height: 1.4;
+  gap: 0.55rem;
+  font-size: clamp(0.82rem, 1.5vw, 1rem);
+  font-weight: 400;
+  color: #9BA7A0;
+  margin: 0 0 1.5rem 0;
+  max-width: 600px;
+  line-height: 1.5;
 }
 
 .subtitle-icon {
   flex-shrink: 0;
+}
+
+.gold-sparkle {
+  color: #E6C687;
+}
+
+.emerald-award {
+  color: #34D399;
 }
 
 .hero-interactive-area {
@@ -167,8 +186,8 @@
   }
   .institution-pill {
     padding: 0.22rem 0.6rem;
-    border-color: rgba(255, 255, 255, 0.08);
-    background: rgba(8, 21, 37, 0.45);
+    border-color: rgba(230, 198, 135, 0.22);
+    background: rgba(7, 21, 13, 0.6);
     gap: 0.35rem;
   }
   .institution-college {
@@ -179,7 +198,7 @@
   .hero-department-wrap {
     padding: 0.2rem 0.55rem;
     margin-bottom: 0.5rem;
-    border-color: rgba(66, 217, 255, 0.14);
+    border-color: rgba(16, 185, 129, 0.18);
     gap: 0.35rem;
     line-height: 1.5;
   }
@@ -193,15 +212,15 @@
     padding: 0.05rem 0.3rem;
   }
   .hero-main-title {
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
     margin-bottom: 0.35rem;
     line-height: 1.55;
   }
   .hero-large-heading {
-    font-size: clamp(1.22rem, 5.2vw, 1.48rem);
+    font-size: clamp(1.25rem, 5.5vw, 1.55rem);
     margin-bottom: 0.55rem;
-    line-height: 1.38;
+    line-height: 1.35;
   }
   .hero-subtitle {
     font-size: 0.74rem;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, ShieldCheck, Sparkles } from 'lucide-react';
+import { ShieldCheck, Sparkles, Award } from 'lucide-react';
 import { EVENT_DETAILS } from '../data/profiles';
 import './Hero.css';
 
@@ -14,7 +14,7 @@ export const Hero: React.FC<HeroProps> = ({ children }) => {
         {/* Top College Header Badge */}
         <div className="hero-institution">
           <div className="institution-pill">
-            <ShieldCheck size={14} className="text-cyan-400" />
+            <ShieldCheck size={14} className="institution-icon" />
             <span className="institution-college">{EVENT_DETAILS.college}</span>
           </div>
         </div>
@@ -38,9 +38,9 @@ export const Hero: React.FC<HeroProps> = ({ children }) => {
 
         {/* Subtitle / Tagline */}
         <p className="hero-subtitle">
-          <Sparkles size={16} className="subtitle-icon text-cyan-400" />
+          <Sparkles size={16} className="subtitle-icon gold-sparkle" />
           <span>{EVENT_DETAILS.tagline}</span>
-          <Activity size={16} className="subtitle-icon text-violet-400" />
+          <Award size={16} className="subtitle-icon emerald-award" />
         </p>
 
         {/* Embedded Children (Search Section & Results) */}

@@ -22,18 +22,6 @@ export const Home: React.FC = () => {
 
   return (
     <div className="home-page">
-      {/* Top Floating Utility Bar with Admin Access */}
-      <div className="home-top-bar">
-        <div className="home-top-left">
-          <span className="live-dot" />
-          <span className="live-text">AHS Invitation Portal 2026</span>
-        </div>
-        <Link to="/admin" className="admin-portal-link" title="Open Admin Portal to add attendees and manage photos">
-          <Settings size={15} />
-          <span>Admin Portal</span>
-        </Link>
-      </div>
-
       {/* Hero with Single Search Input Box */}
       <Hero>
         <ProfileSearch

@@ -19,13 +19,6 @@ export const Hero: React.FC<HeroProps> = ({ children }) => {
           </div>
         </div>
 
-        {/* Small Label */}
-        <div className="hero-department-wrap">
-          <span className="hero-pulse-dot" />
-          <span className="hero-small-label">{EVENT_DETAILS.department}</span>
-          <span className="hero-badge-tag">EST. 2026</span>
-        </div>
-
         {/* Main Title */}
         <h2 className="hero-main-title">{EVENT_DETAILS.eventName}</h2>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, AlertCircle, ArrowRight } from 'lucide-react';
 import type { Profile } from '../data/profiles';
-import { findProfileByName, useProfiles } from '../data/profiles';
+import { findProfileByName } from '../data/profiles';
 import './ProfileSearch.css';
 
 interface ProfileSearchProps {
@@ -15,11 +15,8 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
   onSearchClear,
   initialQuery = ''
 }) => {
-  const [profiles] = useProfiles();
   const [searchTerm, setSearchTerm] = useState(initialQuery);
   const [error, setError] = useState(false);
-
-  const sampleProfiles = profiles.slice(0, 4);
 
   const handleSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -38,15 +35,6 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
     } else {
       setError(true);
       onSearchClear?.();
-    }
-  };
-
-  const handleQuickSelect = (name: string) => {
-    setSearchTerm(name);
-    const result = findProfileByName(name);
-    if (result) {
-      setError(false);
-      onProfileFound(result);
     }
   };
 
@@ -108,25 +96,6 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
           <div className="error-text-wrap">
             <h4 className="error-title">We couldn't find your invitation.</h4>
             <p className="error-subtext">Please check the name and try again.</p>
-          </div>
-        </div>
-      )}
-
-      {/* Suggested Quick Names */}
-      {sampleProfiles.length > 0 && (
-        <div className="search-quick-tags">
-          <span className="quick-label">Try searching:</span>
-          <div className="quick-chips">
-            {sampleProfiles.map(p => (
-              <button
-                key={p.id}
-                type="button"
-                className={`chip ${p.event === 'freshers' ? 'chip--freshers' : 'chip--farewell'}`}
-                onClick={() => handleQuickSelect(p.name)}
-              >
-                {p.name}
-              </button>
-            ))}
           </div>
         </div>
       )}

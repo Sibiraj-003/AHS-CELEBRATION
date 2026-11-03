@@ -49,20 +49,51 @@ export function mapRowToProfile(row: any): Profile {
   };
 }
 
-// Fetch all profiles from Supabase (with fallback to local storage)
+// Fetch all profiles from Supabase (with fallback to local storage & defaults)
 export async function fetchProfilesFromSupabase(): Promise<Profile[]> {
   try {
-    const { data, error } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
-    if (!error && Array.isArray(data)) {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && Array.isArray(data) && data.length > 0) {
       const list = data.map(mapRowToProfile);
       if (typeof window !== 'undefined') {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        window.dispatchEvent(new Event('ahs_profiles_updated'));
       }
       return list;
     }
   } catch (err) {
-    console.warn('Supabase fetch failed, falling back to local storage:', err);
+    console.warn('Supabase fetch failed, falling back to stored/default profiles:', err);
   }
+
+  // REST API fallback if client SDK fails
+  try {
+    const supabaseUrl = 'https://fkunjtrdccsuslaefdch.supabase.co';
+    const anonKey = 'sb_publishable_w6JySw5FJpVUaoYsmYrOPw__gSWywyo';
+    const restRes = await fetch(`${supabaseUrl}/rest/v1/profiles?select=*`, {
+      headers: {
+        'apikey': anonKey,
+        'Authorization': `Bearer ${anonKey}`,
+      },
+    });
+    if (restRes.ok) {
+      const rows = await restRes.json();
+      if (Array.isArray(rows) && rows.length > 0) {
+        const list = rows.map(mapRowToProfile);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+          window.dispatchEvent(new Event('ahs_profiles_updated'));
+        }
+        return list;
+      }
+    }
+  } catch (restErr) {
+    console.warn('REST fallback fetch failed:', restErr);
+  }
+
   return loadStoredProfiles();
 }
 
@@ -167,39 +198,258 @@ export async function uploadPhotoToSupabase(file: File, id: string): Promise<str
   }
 }
 
-// Default Profiles list starts completely empty so admin can add custom attendees
+// Pre-populated official attendees so any user/student immediately finds their invitation even on first load without admin login
 export const DEFAULT_PROFILES: Profile[] = [
   {
-    id: 'sowndariya',
-    name: 'Sowndariya',
-    regNo: 'SOWNDARIYA',
-    eventType: 'freshers',
-    event: 'freshers',
-    photo: '/photos/sowndariya.jpg',
-    role: 'AHS Batch 2026',
-    quote: '',
+    id: "kabeer-khan",
+    name: "Kabeer khan",
+    regNo: "KABEER_KHAN 013",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/kabeer-khan-1793556484339.jpg",
+    role: "RIT Batch 2026",
+    quote: ""
   },
+  {
+    id: "sanjana",
+    name: "Sanjana",
+    regNo: "SANJANA 007",
+    eventType: "farewell",
+    event: "farewell",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/sanjana-1793557830420.jpg",
+    role: "RIT Graduating Senior",
+    quote: ""
+  },
+  {
+    id: "muneeshwaran",
+    name: "Muneeshwaran",
+    regNo: "MUNEESHWARAN 014",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/muneeshwaran-1793556553459.jpg",
+    role: "DMLT Batch 2026",
+    quote: ""
+  },
+  {
+    id: "sowndariya",
+    name: "Sowndariya",
+    regNo: "SOWNDARIYA 001",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/sowndariya.jpg",
+    role: "DMLT Batch 2026",
+    quote: ""
+  },
+  {
+    id: "lakshmi",
+    name: "Lakshmi",
+    regNo: "LAKSHMI 002",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/lakshmi-1793543218177.jpg",
+    role: "OPTOM Batch 2026",
+    quote: ""
+  },
+  {
+    id: "elakiya",
+    name: "Elakiya",
+    regNo: "ELAKIYA 001",
+    eventType: "farewell",
+    event: "farewell",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/elakiya-1793556943593.jpg",
+    role: "DMLT Graduating Senior",
+    quote: ""
+  },
+  {
+    id: "palaniyammal",
+    name: "Palaniyammal",
+    regNo: "PALANIYAMMAL 002",
+    eventType: "farewell",
+    event: "farewell",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/palaniyammal-1793603613781.jpg",
+    role: "DMLT Graduating Senior",
+    quote: ""
+  },
+  {
+    id: "roshini",
+    name: "Roshini",
+    regNo: "ROSHINI 003",
+    eventType: "farewell",
+    event: "farewell",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/roshini-1793603528959.jpg",
+    role: "DMLT Graduating Senior",
+    quote: ""
+  },
+  {
+    id: "raman",
+    name: "Raman",
+    regNo: "RAMAN 004",
+    eventType: "farewell",
+    event: "farewell",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/raman-1793603494839.jpg",
+    role: "DMLT Graduating Senior",
+    quote: ""
+  },
+  {
+    id: "bharakath-nisha",
+    name: "Bharakath nisha",
+    regNo: "BHARAKATH_NISHA 005",
+    eventType: "farewell",
+    event: "farewell",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/bharakath-nisha-1793603474801.jpg",
+    role: "RIT Graduating Senior",
+    quote: ""
+  },
+  {
+    id: "harini-varsha",
+    name: "Harini varsha",
+    regNo: "HARINI_VARSHA 003",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/harini-varsha-1793555234256.jpg",
+    role: "OPTOM Batch 2026",
+    quote: ""
+  },
+  {
+    id: "jayasri",
+    name: "Jayasri",
+    regNo: "JAYASRI 006",
+    eventType: "farewell",
+    event: "farewell",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/jayasri-1793557504911.jpg",
+    role: "RIT Graduating Senior",
+    quote: ""
+  },
+  {
+    id: "deepika",
+    name: "Deepika",
+    regNo: "DEEPIKA 004",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/deepika-1793555411097.jpg",
+    role: "OPTOM Batch 2026",
+    quote: ""
+  },
+  {
+    id: "vishal",
+    name: "Vishal",
+    regNo: "VISHAL 008",
+    eventType: "farewell",
+    event: "farewell",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/vishal-1793557674640.jpg",
+    role: "RIT Graduating Senior",
+    quote: ""
+  },
+  {
+    id: "venkatesh",
+    name: "Venkatesh",
+    regNo: "VENKATESH 009",
+    eventType: "farewell",
+    event: "farewell",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/venkatesh-1793557758428.jpg",
+    role: "RIT Graduating Senior",
+    quote: ""
+  },
+  {
+    id: "dayana",
+    name: "Dayana",
+    regNo: "DAYANA 005",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/dayana-1793555558392.jpg",
+    role: "OPTOM Batch 2026",
+    quote: ""
+  },
+  {
+    id: "angel",
+    name: "Angel",
+    regNo: "ANGEL 006",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/angel-1793555789070.jpg",
+    role: "OPTOM Batch 2026",
+    quote: ""
+  },
+  {
+    id: "lisha",
+    name: "Lisha",
+    regNo: "LISHA 007",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/lisha-1793555924455.jpg",
+    role: "RIT Batch 2026",
+    quote: ""
+  },
+  {
+    id: "chinnaiya",
+    name: "Chinnaiya",
+    regNo: "CHINNAIYA 008",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/chinnaiya-1793556050928.jpg",
+    role: "DMLT Batch 2026",
+    quote: ""
+  },
+  {
+    id: "kabilesh",
+    name: "Kabilesh",
+    regNo: "KABILESH 009",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/kabilesh-1793556172314.jpg",
+    role: "RIT Batch 2026",
+    quote: ""
+  },
+  {
+    id: "kirthikraj",
+    name: "Kirthikraj",
+    regNo: "KIRTHIKRAJ 010",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/kirthikraj-1793556245608.jpg",
+    role: "RIT Batch 2026",
+    quote: ""
+  },
+  {
+    id: "jeeva",
+    name: "Jeeva",
+    regNo: "JEEVA 011",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/jeeva-1793556305482.jpg",
+    role: "RIT Batch 2026",
+    quote: ""
+  },
+  {
+    id: "santhru",
+    name: "Santhru",
+    regNo: "SANTHRU 012",
+    eventType: "freshers",
+    event: "freshers",
+    photo: "https://fkunjtrdccsuslaefdch.supabase.co/storage/v1/object/public/photos/santhru-1793556384966.jpg",
+    role: "RIT Batch 2026",
+    quote: ""
+  }
 ];
 
 export const PROFILES: Profile[] = DEFAULT_PROFILES;
 
 /**
- * Loads profiles from localStorage or returns defaults
+ * Loads profiles from localStorage or returns pre-populated defaults
  */
 export function loadStoredProfiles(): Profile[] {
-  if (typeof window === 'undefined') return [];
+  if (typeof window === 'undefined') return DEFAULT_PROFILES;
   try {
-    // Purge any legacy storage key with old mock attendees
     if (localStorage.getItem('ahs_profiles_data_2026')) {
       localStorage.removeItem('ahs_profiles_data_2026');
     }
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
-      return [];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_PROFILES));
+      return DEFAULT_PROFILES;
     }
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
+    if (Array.isArray(parsed) && parsed.length > 0) {
       return parsed.map((p: any) => ({
         ...p,
         regNo: p.regNo || p.id,
@@ -208,10 +458,12 @@ export function loadStoredProfiles(): Profile[] {
         photo: p.photo || ''
       }));
     }
+    // If empty array was saved previously, return DEFAULT_PROFILES!
+    return DEFAULT_PROFILES;
   } catch (err) {
     console.error('Error loading profiles from localStorage:', err);
   }
-  return [];
+  return DEFAULT_PROFILES;
 }
 
 /**
@@ -264,16 +516,16 @@ export function deleteStoredProfile(id: string): Profile[] {
  * Resets profiles to original defaults
  */
 export function resetStoredProfiles(): Profile[] {
-  saveStoredProfiles([]);
-  return [];
+  saveStoredProfiles(DEFAULT_PROFILES);
+  return DEFAULT_PROFILES;
 }
 
 /**
  * Clears all profiles from storage completely
  */
 export function clearAllStoredProfiles(): Profile[] {
-  saveStoredProfiles([]);
-  return [];
+  saveStoredProfiles(DEFAULT_PROFILES);
+  return DEFAULT_PROFILES;
 }
 
 /**
@@ -285,7 +537,7 @@ export function useProfiles(): [Profile[], (profiles: Profile[]) => void] {
   useEffect(() => {
     let mounted = true;
     fetchProfilesFromSupabase().then(list => {
-      if (mounted && list) {
+      if (mounted && list && list.length > 0) {
         setProfiles(list);
       }
     });
@@ -325,7 +577,7 @@ export function normalizeString(str: string): string {
 }
 
 /**
- * Finds a profile by searching name or register number
+ * Finds a profile by searching name or register number synchronously
  */
 export function findProfileByName(query: string, profilesList?: Profile[]): Profile | undefined {
   const list = profilesList || loadStoredProfiles();
@@ -405,6 +657,63 @@ export function findProfileById(id: string, profilesList?: Profile[]): Profile |
       photo: ATTENDEE_CLOUD_PHOTOS[slugId],
       role: 'AHS Batch 2026',
     };
+  }
+
+  return undefined;
+}
+
+/**
+ * High-reliability async profile search:
+ * 1. Checks local memory / cache instantly
+ * 2. If not found locally, queries Supabase live in real-time
+ */
+export async function searchProfileAsync(query: string): Promise<Profile | undefined> {
+  const clean = query.trim();
+  if (!clean) return undefined;
+
+  // 1. Instant local / memory lookup
+  const localMatch = findProfileByName(clean) || findProfileById(clean);
+  if (localMatch) return localMatch;
+
+  // 2. Real-time Supabase query
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .or(`name.ilike.%${clean}%,id.ilike.%${clean}%,reg_no.ilike.%${clean}%`)
+      .limit(1)
+      .maybeSingle();
+
+    if (!error && data) {
+      const p = mapRowToProfile(data);
+      addStoredProfile(p);
+      return p;
+    }
+  } catch (err) {
+    console.warn('Supabase searchProfileAsync query failed, checking REST:', err);
+  }
+
+  // 3. REST fallback
+  try {
+    const supabaseUrl = 'https://fkunjtrdccsuslaefdch.supabase.co';
+    const anonKey = 'sb_publishable_w6JySw5FJpVUaoYsmYrOPw__gSWywyo';
+    const encoded = encodeURIComponent(`(name.ilike.*${clean}*,id.ilike.*${clean}*,reg_no.ilike.*${clean}*)`);
+    const restRes = await fetch(`${supabaseUrl}/rest/v1/profiles?or=${encoded}&limit=1`, {
+      headers: {
+        'apikey': anonKey,
+        'Authorization': `Bearer ${anonKey}`,
+      },
+    });
+    if (restRes.ok) {
+      const rows = await restRes.json();
+      if (Array.isArray(rows) && rows.length > 0) {
+        const p = mapRowToProfile(rows[0]);
+        addStoredProfile(p);
+        return p;
+      }
+    }
+  } catch (restErr) {
+    console.warn('REST search fallback failed:', restErr);
   }
 
   return undefined;

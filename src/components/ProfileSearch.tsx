@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Search, AlertCircle, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
 import type { Profile } from '../data/profiles';
-import { findProfileByName } from '../data/profiles';
+import { searchProfileAsync, fetchProfilesFromSupabase } from '../data/profiles';
 import './ProfileSearch.css';
 
 interface ProfileSearchProps {
@@ -17,8 +17,14 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState(initialQuery);
   const [error, setError] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
-  const handleSearch = (e?: React.FormEvent) => {
+  // Background fetch all latest profiles from Supabase as soon as the search component mounts
+  useEffect(() => {
+    fetchProfilesFromSupabase();
+  }, []);
+
+  const handleSearch = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const query = searchTerm.trim();
     if (!query) {
@@ -27,14 +33,23 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
       return;
     }
 
-    const result = findProfileByName(query);
+    setIsSearching(true);
+    setError(false);
 
-    if (result) {
-      setError(false);
-      onProfileFound(result);
-    } else {
+    try {
+      const result = await searchProfileAsync(query);
+      if (result) {
+        setError(false);
+        onProfileFound(result);
+      } else {
+        setError(true);
+        onSearchClear?.();
+      }
+    } catch {
       setError(true);
       onSearchClear?.();
+    } finally {
+      setIsSearching(false);
     }
   };
 
@@ -53,7 +68,7 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
           <input
             type="text"
             className="search-input"
-            placeholder="Enter your name"
+            placeholder="Enter your name (e.g. Kabeer, Sanjana, Sowndariya...)"
             value={searchTerm}
             onChange={e => {
               setSearchTerm(e.target.value);
@@ -83,9 +98,19 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
           type="submit"
           className="search-submit-btn"
           id="find-my-invitation-btn"
+          disabled={isSearching}
         >
-          <span>Find My Invitation</span>
-          <ArrowRight size={16} className="submit-arrow" />
+          {isSearching ? (
+            <>
+              <Loader2 size={16} className="animate-spin" />
+              <span>Searching...</span>
+            </>
+          ) : (
+            <>
+              <span>Find My Invitation</span>
+              <ArrowRight size={16} className="submit-arrow" />
+            </>
+          )}
         </button>
       </form>
 
@@ -95,7 +120,7 @@ export const ProfileSearch: React.FC<ProfileSearchProps> = ({
           <AlertCircle size={20} className="error-icon" />
           <div className="error-text-wrap">
             <h4 className="error-title">We couldn't find your invitation.</h4>
-            <p className="error-subtext">Please check the name and try again.</p>
+            <p className="error-subtext">Please check the spelling of your name or register number and try again.</p>
           </div>
         </div>
       )}

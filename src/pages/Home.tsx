@@ -1,17 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import ProfileSearch from '../components/ProfileSearch';
 import ProfileCard from '../components/ProfileCard';
 import ProgrammeSchedule from '../components/ProgrammeSchedule';
 import type { Profile } from '../data/profiles';
-import { EVENT_DETAILS } from '../data/profiles';
+import { EVENT_DETAILS, fetchProfilesFromSupabase } from '../data/profiles';
 import { Sparkles, Calendar, MapPin, Award, Settings } from 'lucide-react';
 import './Home.css';
 
 export const Home: React.FC = () => {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Automatically fetch and synchronize attendee invitations from Supabase on home visit
+    fetchProfilesFromSupabase();
+  }, []);
 
   const handleProfileFound = (profile: Profile) => {
     setSelectedProfile(profile);

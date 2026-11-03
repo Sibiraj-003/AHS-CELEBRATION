@@ -5,10 +5,14 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Admin from './pages/Admin';
 import SchedulePage from './pages/SchedulePage';
+import { fetchProfilesFromSupabase } from './data/profiles';
 import './App.css';
 
 export const App: React.FC = () => {
   useEffect(() => {
+    // Proactively fetch all attendee profiles from Supabase so every user has instant access
+    fetchProfilesFromSupabase();
+
     // Disable text/image copy, cut, and right-click context menu globally
     const handleCopy = (e: ClipboardEvent) => {
       e.preventDefault();

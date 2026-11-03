@@ -4,6 +4,7 @@ import EventBackground from './components/EventBackground';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Admin from './pages/Admin';
+import SchedulePage from './pages/SchedulePage';
 import './App.css';
 
 export const App: React.FC = () => {
@@ -40,6 +41,7 @@ export const App: React.FC = () => {
         <div className="app-content">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/schedule" element={<SchedulePage />} />
             <Route path="/profile/:profileId" element={<Profile />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<Navigate to="/" replace />} />

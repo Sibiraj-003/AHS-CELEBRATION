@@ -3,7 +3,7 @@ import { useParams, useSearchParams, Link } from 'react-router-dom';
 import { findProfileById, addStoredProfile, fetchProfileByIdFromSupabase, ATTENDEE_CLOUD_PHOTOS, EVENT_DETAILS, type Profile as ProfileType } from '../data/profiles';
 import OfficialInvitation from '../components/OfficialInvitation';
 import QRCodeCard from '../components/QRCodeCard';
-import { ArrowLeft, ShieldCheck, AlertCircle, Home as HomeIcon, QrCode } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, AlertCircle, Home as HomeIcon, QrCode, Calendar } from 'lucide-react';
 import './Profile.css';
 
 export const Profile: React.FC = () => {
@@ -137,9 +137,14 @@ export const Profile: React.FC = () => {
                 <span>{showQR ? 'Hide Digital QR Pass' : 'View Digital QR Pass'}</span>
               </button>
 
+              <Link to="/schedule" className="profile-schedule-btn">
+                <Calendar size={16} />
+                <span>Programme Schedule</span>
+              </Link>
+
               <Link to="/" className="profile-home-btn">
                 <HomeIcon size={16} />
-                <span>Event Home Portal</span>
+                <span>Event Home</span>
               </Link>
             </div>
 

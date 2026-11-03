@@ -32,7 +32,7 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
   useEffect(() => {
     // Fire celebratory confetti on view
     const colors = isFreshers
-      ? ['#00E5FF', '#1677FF', '#38BDF8', '#FFFFFF', '#0284C7']
+      ? ['#A855F7', '#C084FC', '#7C5CFF', '#FFFFFF', '#E879F9']
       : ['#C084FC', '#7C5CFF', '#F472B6', '#FFFFFF', '#A855F7'];
 
     confetti({
@@ -83,7 +83,8 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
       const ctx = canvas.getContext('2d');
       if (!ctx) throw new Error('No 2d context');
 
-      const targetW = isFreshers ? 764 : 682;
+      // Both templates are 682 x 1024
+      const targetW = 682;
       const targetH = 1024;
       canvas.width = targetW;
       canvas.height = targetH;
@@ -92,10 +93,10 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
       ctx.fillStyle = '#030712';
       ctx.fillRect(0, 0, targetW, targetH);
 
-      // 2. Photo slot parameters
-      const cx = isFreshers ? 381 : 340.5;
-      const cy = isFreshers ? 416 : 414;
-      const r = isFreshers ? 141 : 133.5;
+      // 2. Photo slot parameters (Precise alignment to circular laurel aperture)
+      const cx = 341.0;
+      const cy = 352.0;
+      const r = 128.0;
 
       // Load attendee photo if available
       if (profile.photo) {
@@ -115,7 +116,7 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
           ctx.closePath();
           ctx.clip();
 
-          // Cover fit focusing at 22% from top
+          // Cover fit focusing at 20% from top
           const imgAspect = photoImg.naturalWidth / photoImg.naturalHeight;
           const boxSize = (r + 2) * 2;
           let drawW = boxSize;
@@ -128,7 +129,7 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
             drawX = cx - drawW / 2;
           } else {
             drawH = boxSize / imgAspect;
-            drawY = cy - r - 2 - (drawH - boxSize) * 0.22;
+            drawY = cy - r - 2 - (drawH - boxSize) * 0.20;
           }
 
           ctx.drawImage(photoImg, drawX, drawY, drawW, drawH);
@@ -138,9 +139,9 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
           ctx.save();
           ctx.beginPath();
           ctx.arc(cx, cy, r, 0, Math.PI * 2);
-          ctx.fillStyle = isFreshers ? '#071830' : '#1c0a32';
+          ctx.fillStyle = '#1c0a32';
           ctx.fill();
-          ctx.fillStyle = isFreshers ? '#42D9FF' : '#C084FC';
+          ctx.fillStyle = '#C084FC';
           ctx.font = 'bold 56px Inter, sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -164,16 +165,14 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
       ctx.font = 'bold 36px "Great Vibes", "Dancing Script", "Alex Brush", cursive';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      const ribbonY = targetH * 0.546;
+      const ribbonY = 484;
 
       // Subtle metallic text shadow & stroke
-      ctx.shadowColor = 'rgba(255, 255, 255, 0.4)';
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
       ctx.shadowBlur = 4;
-      ctx.fillStyle = isFreshers ? '#081d3a' : '#210740';
+      ctx.fillStyle = '#210740';
       ctx.fillText(profile.name, cx, ribbonY);
       ctx.restore();
-
-
 
       // Convert to downloadable file
       canvas.toBlob((blob) => {
@@ -241,7 +240,7 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
 
       {/* Main Official Poster Card */}
       <div className="invitation-poster-card" ref={cardRef}>
-        {/* Layer 1: Attendee Photo (Properly aligned inside the circular laurel wreath) */}
+        {/* Layer 1: Attendee Photo (Aligned inside the circular laurel wreath) */}
         <div className="invitation-photo-slot">
           {profile.photo ? (
             <img
@@ -268,7 +267,7 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
           )}
         </div>
 
-        {/* Layer 2: Official Template Poster PNG (Front overlay with transparent photo aperture) */}
+        {/* Layer 2: Official Cutout Template PNG (Front overlay with transparent photo aperture) */}
         <img
           src={templatePng}
           alt={`${isFreshers ? 'Freshers Day' : 'Farewell Day'} 2026 Official Invitation`}
@@ -287,15 +286,13 @@ export const OfficialInvitation: React.FC<OfficialInvitationProps> = ({
         <div className="invitation-ribbon-name" title={profile.name}>
           <span className="ribbon-text">{profile.name}</span>
         </div>
-
-
       </div>
 
       {/* Quick Event Summary Bar */}
       <div className="invitation-quick-meta no-print">
         <div className="meta-pill">
           <Calendar size={14} className="meta-icon" />
-          <span>{EVENT_DETAILS.date || 'Nov 4, 2026'}</span>
+          <span>{EVENT_DETAILS.date || 'Nov 5, 2026'}</span>
         </div>
         <div className="meta-pill">
           <Clock size={14} className="meta-icon" />

@@ -20,7 +20,7 @@ export const EVENT_DETAILS = {
   mainEvent: "FRESHERS DAY & FAREWELL DAY",
   tagline: "Celebrating New Beginnings • Cherishing Memories",
   year: "2026",
-  date: "Nov 4, 2026",
+  date: "Nov 5, 2026",
   venue: "Near Boys Hostel",
   time: "10:00 AM",
 };

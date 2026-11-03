@@ -148,6 +148,30 @@
   transform: translateY(-1px);
 }
 
+.profile-schedule-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FECACA;
+  background: rgba(220, 38, 38, 0.14);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 9999px;
+  padding: 0.6rem 1.25rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.profile-schedule-btn:hover {
+  background: rgba(220, 38, 38, 0.28);
+  border-color: #EF4444;
+  color: #FFFFFF;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+  transform: translateY(-1px);
+}
+
 .profile-home-btn {
   display: inline-flex;
   align-items: center;
@@ -242,6 +266,17 @@
   }
   .nav-branding {
     display: none;
+  }
+  .profile-view-actions {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .btn-toggle-qr,
+  .profile-schedule-btn,
+  .profile-home-btn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
   }
 }
 

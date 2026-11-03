@@ -5,7 +5,7 @@
   overflow-x: hidden;
 }
 
-/* Top bar with Admin shortcut - Full Width */
+/* Top bar with Navigation shortcuts - Full Width */
 .home-top-bar {
   max-width: 1440px;
   width: 100%;
@@ -16,6 +16,7 @@
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-sizing: border-box;
+  gap: 1rem;
 }
 
 .home-top-left {
@@ -45,6 +46,59 @@
   color: #94A3B8;
   font-weight: 600;
   text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Nav links in top header */
+.home-top-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.home-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #CBD5E1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.home-nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.nav-link-schedule {
+  color: #FECACA;
+  background: rgba(220, 38, 38, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+.nav-link-schedule:hover {
+  background: rgba(220, 38, 38, 0.25);
+  border-color: #EF4444;
+  color: #FFFFFF;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.4);
+}
+
+.schedule-nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #EF4444;
+  box-shadow: 0 0 8px #EF4444;
 }
 
 .admin-portal-link {
@@ -73,8 +127,57 @@
   transform: translateY(-1px);
 }
 
+/* Quick shortcut under search in Hero */
+.hero-quick-shortcuts {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-schedule-shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(153, 27, 27, 0.25) 100%);
+  border: 1.2px solid rgba(239, 68, 68, 0.45);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(220, 38, 38, 0.25);
+  color: #FFFFFF;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(0.78rem, 1.8vw, 0.88rem);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.hero-schedule-shortcut:hover {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.3) 0%, rgba(153, 27, 27, 0.45) 100%);
+  border-color: #EF4444;
+  box-shadow: 0 6px 25px rgba(220, 38, 38, 0.45);
+  transform: translateY(-2px);
+}
+
+.badge-30 {
+  background: #DC2626;
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.6);
+}
+
+/* Footer buttons */
 .footer-admin-row {
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
 }
 
 .footer-admin-btn {
@@ -97,6 +200,19 @@
   border-color: rgba(66, 217, 255, 0.4);
   color: #42D9FF;
   box-shadow: 0 0 12px rgba(66, 217, 255, 0.2);
+}
+
+.footer-schedule-btn {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #FCA5A5;
+}
+
+.footer-schedule-btn:hover {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: #EF4444;
+  color: #FFFFFF;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.35);
 }
 
 .search-result-wrap {
@@ -339,15 +455,32 @@
 @media (max-width: 640px) {
   .home-top-bar {
     padding: 0.5rem 0.85rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .home-top-left {
+    justify-content: center;
+  }
+  .home-top-nav-links {
+    justify-content: center;
   }
   .live-text {
     font-size: 0.68rem;
     line-height: 1.5;
   }
+  .home-nav-link {
+    padding: 0.28rem 0.65rem;
+    font-size: 0.7rem;
+  }
   .admin-portal-link {
     padding: 0.28rem 0.65rem;
     font-size: 0.7rem;
     line-height: 1.4;
+  }
+  .hero-schedule-shortcut {
+    font-size: 0.76rem;
+    padding: 0.4rem 0.85rem;
   }
   .search-result-wrap {
     gap: 0.85rem;

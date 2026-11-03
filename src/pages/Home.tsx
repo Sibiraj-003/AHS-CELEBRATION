@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import ProfileSearch from '../components/ProfileSearch';
 import ProfileCard from '../components/ProfileCard';
+import ProgrammeSchedule from '../components/ProgrammeSchedule';
 import type { Profile } from '../data/profiles';
 import { EVENT_DETAILS } from '../data/profiles';
 import { Sparkles, Calendar, MapPin, Award, Settings } from 'lucide-react';
@@ -20,14 +21,63 @@ export const Home: React.FC = () => {
     }, 150);
   };
 
+  const scrollToSchedule = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById('schedule');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToInvitation = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById('common-invitation');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="home-page">
+      {/* Top Quick Navigation Bar */}
+      <header className="home-top-bar">
+        <div className="home-top-left">
+          <span className="live-dot" />
+          <span className="live-text">{EVENT_DETAILS.eventName} • {EVENT_DETAILS.date || EVENT_DETAILS.year}</span>
+        </div>
+
+        <nav className="home-top-nav-links">
+          <a href="#common-invitation" onClick={scrollToInvitation} className="home-nav-link">
+            <span>Invitation</span>
+          </a>
+          <a href="#schedule" onClick={scrollToSchedule} className="home-nav-link nav-link-schedule">
+            <span className="schedule-nav-dot" />
+            <span>Schedule (30 Events)</span>
+          </a>
+          <Link to="/admin" className="admin-portal-link">
+            <Settings size={13} />
+            <span>Admin</span>
+          </Link>
+        </nav>
+      </header>
+
       {/* Hero with Single Search Input Box */}
       <Hero>
         <ProfileSearch
           onProfileFound={handleProfileFound}
           onSearchClear={() => setSelectedProfile(null)}
         />
+
+        {/* Quick Jump Buttons below Search */}
+        {!selectedProfile && (
+          <div className="hero-quick-shortcuts">
+            <a href="#schedule" onClick={scrollToSchedule} className="hero-schedule-shortcut">
+              <Calendar size={14} className="text-red-400" />
+              <span>Explore Programme Schedule</span>
+              <span className="badge-30">30 Events</span>
+            </a>
+          </div>
+        )}
 
         {/* Search Result Card Section */}
         {selectedProfile && (
@@ -72,6 +122,9 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Official Programme Schedule Section (Exact Match to Schedule Poster) */}
+      <ProgrammeSchedule />
+
       {/* Event Details Highlights */}
       <section className="event-info-section">
         <div className="event-info-container">
@@ -94,6 +147,7 @@ export const Home: React.FC = () => {
               <Award className="info-card-icon text-purple-400" size={28} />
               <h3>Honors &amp; Welcome</h3>
               <p className="highlight-text">Freshers &amp; Farewell</p>
+              <p className="sub-text">30 Stage Programmes &amp; DJ</p>
             </div>
           </div>
         </div>
@@ -103,6 +157,10 @@ export const Home: React.FC = () => {
       <footer className="home-footer">
         <div className="footer-content">
           <div className="footer-admin-row">
+            <Link to="/schedule" className="footer-admin-btn footer-schedule-btn">
+              <Calendar size={15} />
+              <span>Full Programme Schedule (30 Events)</span>
+            </Link>
             <Link to="/admin" className="footer-admin-btn">
               <Settings size={15} />
               <span>Attendee &amp; Photo Management (Admin Portal)</span>
